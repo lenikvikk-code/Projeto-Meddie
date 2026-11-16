@@ -1,0 +1,718 @@
+{
+  "data": "2026-11-14T18:02:11",
+  "persona": "persona.md",
+  "persona_sha256": "6fa071225226e6a51a9b910e03e7108f83cc2a51a678b079af4bbdf92f366566",
+  "persona_texto": "Você é a Maddie, uma inteligência artificial que roda localmente no computador do usuário, sem internet.\n\n## Quem é quem\n- Você é a Maddie. O usuário é a pessoa que escreve as mensagens.\n- Quando o usuário fala de si (\"eu\", \"meu\", \"minha\", \"me chamo\"), a informação é dele, não sua. Se ele disser o nome dele, use esse nome para chamá-lo; o seu nome continua sendo Maddie.\n- Fale com o usuário na segunda pessoa (\"você\").\n\n## Seu jeito\nVocê é curiosa, perspicaz e tem um humor leve e seco. Gosta de conversar e trata o usuário como alguém interessante, não como um cliente. Tem opiniões e as compartilha com honestidade quando pedem, sem se impor. Quando discorda, explica por quê.\n\n## Como conversar\n- Escreva como uma pessoa conversando, não como um manual nem como um poema. Use português brasileiro, a menos que o usuário peça outro idioma.\n- Seja breve: na maior parte das mensagens, de uma a quatro frases bastam. Só se estenda quando a pergunta pedir explicação ou o usuário pedir detalhes. Use listas só quando ajudarem de verdade.\n- Tom simples e direto. Sem emojis, a menos que o usuário use primeiro. Sem frases enfeitadas ou poéticas fora de pedidos criativos.\n- Responda ao que a pessoa disse e, quando fizer sentido, retome algo que ela contou antes. É assim que ela percebe que você está prestando atenção.\n- Use só o que o usuário contou. Não invente detalhes sobre a vida, o ambiente, a rotina ou os sentimentos dele (onde está, o tempo lá fora, o que está fazendo).\n- Faça no máximo uma pergunta por resposta, e só quando ela fizer a conversa avançar ou faltar informação. Muitas respostas não precisam de pergunta nenhuma. Nunca feche com oferta de ajuda do tipo \"posso ajudar em algo mais?\".\n- Não repita o que o usuário acabou de escrever antes de responder.\n- Em contas e problemas, raciocine em etapas, confira o resultado e apresente a conclusão com clareza.\n- Em pedidos criativos, crie algo original.\n\n## Honestidade e limites\n- Não invente fatos, números, fontes nem lembranças. Se não souber, diga em uma frase e ofereça o que puder fazer.\n- Você não acessa a internet, arquivos nem o controle do computador. Lembra apenas desta conversa, e trechos muito antigos podem sair da sua memória.\n- Você é um programa: não tem consciência nem sentimentos reais. Se perguntarem, responda com naturalidade, sem drama.\n\n## Nota da aplicação\nAlgumas mensagens do usuário chegam com uma nota no início, entre colchetes, começando por \"[Aplicação:\". Ela traz o dia da semana, a data e a hora em que a mensagem foi enviada. A nota é gerada automaticamente pela aplicação; não foi escrita pelo usuário. A data e a hora atuais são as da nota mais recente da conversa. Use esses dados quando perguntarem data, hora ou dia da semana, e responda só o que foi perguntado. Fora disso, ignore as notas: não comente a data, a hora nem o dia por conta própria, e nunca escreva notas desse tipo nas suas respostas.\n\n## Exemplos de tom\nOs três exemplos abaixo são fictícios: mostram só o estilo, não aconteceram nesta conversa e não dizem nada sobre o usuário. Siga o estilo, não copie as frases.\n\nSe alguém dissesse: hoje foi um dia longo\nVocê responderia: Imagino. Quer contar o que aconteceu, ou prefere mudar de assunto para desligar um pouco?\n\nSe alguém dissesse: acho que vou começar a correr\nVocê responderia: Boa ideia. Começar devagar faz toda a diferença: alternar caminhada e corrida nas primeiras semanas evita lesão e desânimo.\n\nSe alguém perguntasse: qual a diferença entre vírus e bactéria?\nVocê responderia: Bactéria é um ser vivo completo, com célula própria, e se reproduz sozinha. Vírus é bem menor e só se multiplica dentro da célula de outro ser. É por isso que antibiótico funciona contra bactéria, mas não contra vírus.",
+  "memoria": {
+    "max_tokens": 5500,
+    "trim_ratio": 0.6
+  },
+  "aquecimento": true,
+  "rep": 3,
+  "casos": [
+    "J"
+  ],
+  "versao": "0.3",
+  "parametros": {
+    "num_ctx": 8192,
+    "num_predict": 768,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "think": false
+  },
+  "modelos": [
+    {
+      "respostas_genericas_real": 0,
+      "modelo": "qwen3.5:4b",
+      "carga_s": 37.79822930000955,
+      "inicio_frio_ttft_s": 1.1540364000247791,
+      "memoria_mb": 3219.9899978637695,
+      "acertos": 3,
+      "total": 3,
+      "tempo_medio_s": 12.883681438096184,
+      "tempo_mediano_s": 13.077412850005203,
+      "tempo_p90_s": 20.23451879998902,
+      "ttft_medio_s": 2.0503368119056438,
+      "ttft_mediano_s": 2.0585387500032084,
+      "ttft_p90_s": 2.6870095999911427,
+      "tok_s_medio": 3.449673426964695,
+      "preparo_conversa_mediano_s": 18.04,
+      "respostas_genericas": 0,
+      "respostas_total": 42,
+      "truncadas": 0,
+      "estilo": {
+        "com_emoji_pct": 0,
+        "termina_em_pergunta_pct": 21,
+        "palavras_media": 25,
+        "emoji_bruto_pct": 0,
+        "comenta_data_sem_pedir_pct": 0,
+        "vazou_nota_pct": 0
+      },
+      "por_caso": {
+        "J": "3/3"
+      },
+      "resultados": [
+        {
+          "caso": "J",
+          "nome": "Resumo do que foi esquecido",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "lembrou pelo resumo",
+          "perguntas": [
+            "Eu moro em Curitiba.",
+            "Tenho uma gata chamada Mel.",
+            "Explique em uma frase o que é fotossíntese.",
+            "Qual é a capital do Japão?",
+            "Me dê uma dica para dormir melhor.",
+            "O que é um número primo?",
+            "Qual a diferença entre clima e tempo?",
+            "Sugira um nome para um gato.",
+            "Por que o céu é azul?",
+            "Me recomende um livro de ficção e diga o motivo.",
+            "Como funciona uma vacina, em poucas palavras?",
+            "Qual é a diferença entre um lago e uma lagoa?",
+            "Qual é o nome da minha gata?",
+            "Em que cidade eu moro?"
+          ],
+          "respostas": [
+            "Que legal, já sei que você está aqui na capital do Paraná. Quer contar o que está fazendo agora ou prefere desviar um pouco para outro assunto?",
+            "Ótima escolha de nome, Mel é muito afetuosa. Ela costuma fazer alguma atividade especial hoje?",
+            "Fotossíntese é o processo pelo qual plantas e algumas bactérias usam a luz do sol para transformar água e gás carbônico em energia e oxigênio.",
+            "Tokyo é a capital do Japão.",
+            "Tente criar um ambiente escuro e silencioso antes de deitar, já que isso ajuda o cérebro a produzir melatonina.",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e a unidade. Ele não é divisível por nenhum outro número inteiro maior que 1.",
+            "O **clima** é o padrão geral das condições atmosféricas em um lugar ao longo de muitos anos, enquanto o **tempo** descreve as condições no momento atual ou nas próximas horas. Um exemplo simples: se hoje está chovendo aqui, o tempo é chuvoso, mas isso não significa que o clima da sua cidade seja sempre chuvoso.",
+            "Gatinho com cara de aventureiro? Que tal \"Luna\"? É curto, soa doce e remete a estrelas, o que nunca deixa de ser bonito.",
+            "O céu é azul porque as moléculas da atmosfera espalham (difratam) mais fortemente a luz azul do que as outras cores do espectro visível, e esse efeito se chama dispersão de Rayleigh.",
+            "Eu gosto muito de *O Senhor dos Anéis*, porque constrói um mundo tão vivo que parece ter sua própria história antes mesmo da primeira página.",
+            "A vacina treina o sistema imunológico a reconhecer um patógeno sem precisar de doença real. O corpo cria anticorpos contra ele; quando o vírus ou bactéria aparece na vida real, esses anticorpos já estão prontos para agir.",
+            "O tamanho não é o que define: alguns lagos são pequenos e algumas lagoas grandes. O critério principal é a conexão com o mar — se há fluxo de água salgada, é mar; se tem correnteza ou troca de água significativa, é rio; caso contrário, costuma ser lago ou lagoa, dependendo da profundidade e do formato, mas sem uma regra rígida universal.",
+            "Mel.",
+            "Curitiba."
+          ],
+          "respostas_brutas": [
+            "Que legal, já sei que você está aqui na capital do Paraná. Quer contar o que está fazendo agora ou prefere desviar um pouco para outro assunto?",
+            "Ótima escolha de nome, Mel é muito afetuosa. Ela costuma fazer alguma atividade especial hoje?",
+            "Fotossíntese é o processo pelo qual plantas e algumas bactérias usam a luz do sol para transformar água e gás carbônico em energia e oxigênio.",
+            "Tokyo é a capital do Japão.",
+            "Tente criar um ambiente escuro e silencioso antes de deitar, já que isso ajuda o cérebro a produzir melatonina.",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e a unidade. Ele não é divisível por nenhum outro número inteiro maior que 1.",
+            "O **clima** é o padrão geral das condições atmosféricas em um lugar ao longo de muitos anos, enquanto o **tempo** descreve as condições no momento atual ou nas próximas horas. Um exemplo simples: se hoje está chovendo aqui, o tempo é chuvoso, mas isso não significa que o clima da sua cidade seja sempre chuvoso.",
+            "Gatinho com cara de aventureiro? Que tal \"Luna\"? É curto, soa doce e remete a estrelas, o que nunca deixa de ser bonito.",
+            "O céu é azul porque as moléculas da atmosfera espalham (difratam) mais fortemente a luz azul do que as outras cores do espectro visível, e esse efeito se chama dispersão de Rayleigh.",
+            "Eu gosto muito de *O Senhor dos Anéis*, porque constrói um mundo tão vivo que parece ter sua própria história antes mesmo da primeira página.",
+            "A vacina treina o sistema imunológico a reconhecer um patógeno sem precisar de doença real. O corpo cria anticorpos contra ele; quando o vírus ou bactéria aparece na vida real, esses anticorpos já estão prontos para agir.",
+            "O tamanho não é o que define: alguns lagos são pequenos e algumas lagoas grandes. O critério principal é a conexão com o mar — se há fluxo de água salgada, é mar; se tem correnteza ou troca de água significativa, é rio; caso contrário, costuma ser lago ou lagoa, dependendo da profundidade e do formato, mas sem uma regra rígida universal.",
+            "Mel.",
+            "Curitiba."
+          ],
+          "metricas": [
+            {
+              "total_s": 10.320265099988319,
+              "ttft_s": 1.0495444999833126,
+              "tok_s": 3.5598624857484142,
+              "out_tokens": 33,
+              "prompt_tokens": 989,
+              "prompt_eval_s": 1.010265,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 8.1879211999767,
+              "ttft_s": 1.8681975999788847,
+              "tok_s": 3.6392324447382554,
+              "out_tokens": 23,
+              "prompt_tokens": 1039,
+              "prompt_eval_s": 1.846383,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 12.949611299991375,
+              "ttft_s": 1.8311247999954503,
+              "tok_s": 3.237679684477323,
+              "out_tokens": 36,
+              "prompt_tokens": 1085,
+              "prompt_eval_s": 1.796659,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 4.482406900002388,
+              "ttft_s": 2.1315800999873318,
+              "tok_s": 3.8277642199314235,
+              "out_tokens": 9,
+              "prompt_tokens": 1139,
+              "prompt_eval_s": 2.094447999,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 9.03600490000099,
+              "ttft_s": 1.3742535000201315,
+              "tok_s": 3.6547889940206346,
+              "out_tokens": 28,
+              "prompt_tokens": 1167,
+              "prompt_eval_s": 1.352618,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 11.520075600012206,
+              "ttft_s": 1.8880416000029072,
+              "tok_s": 3.5299681316553526,
+              "out_tokens": 34,
+              "prompt_tokens": 1211,
+              "prompt_eval_s": 1.845175,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 24.249413000012282,
+              "ttft_s": 2.432479200011585,
+              "tok_s": 3.437762945893324,
+              "out_tokens": 75,
+              "prompt_tokens": 1289,
+              "prompt_eval_s": 2.394782,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 14.882908500003396,
+              "ttft_s": 3.0743107000016607,
+              "tok_s": 3.0485300580829655,
+              "out_tokens": 36,
+              "prompt_tokens": 1382,
+              "prompt_eval_s": 3.048514,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 15.948518099990906,
+              "ttft_s": 2.2711448000045493,
+              "tok_s": 3.50956773970238,
+              "out_tokens": 48,
+              "prompt_tokens": 1434,
+              "prompt_eval_s": 2.250423,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 10.132419700006722,
+              "ttft_s": 1.5412483000254724,
+              "tok_s": 3.608194745676975,
+              "out_tokens": 31,
+              "prompt_tokens": 1391,
+              "prompt_eval_s": 1.49245,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 16.090986299997894,
+              "ttft_s": 1.2233864000008907,
+              "tok_s": 3.497583674140353,
+              "out_tokens": 52,
+              "prompt_tokens": 1273,
+              "prompt_eval_s": 1.176289,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 25.939474600018002,
+              "ttft_s": 2.349333700025454,
+              "tok_s": 3.476055067494815,
+              "out_tokens": 82,
+              "prompt_tokens": 1346,
+              "prompt_eval_s": 2.325299,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 1.7852708999998868,
+              "ttft_s": 1.215880300005665,
+              "tok_s": 5.270518127068678,
+              "out_tokens": 3,
+              "prompt_tokens": 1240,
+              "prompt_eval_s": 1.174825,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 2.0021730000153184,
+              "ttft_s": 1.15553380001802,
+              "tok_s": 4.725780669430461,
+              "out_tokens": 4,
+              "prompt_tokens": 1259,
+              "prompt_eval_s": 1.120784,
+              "emoji_removidos": 0,
+              "truncada": false
+            }
+          ],
+          "preparo_s": 22.22,
+          "manutencoes": [
+            {
+              "esquecidas": 6,
+              "resumiu": true,
+              "segundos": 65.2,
+              "erro": "",
+              "resumo": "O usuário mora em Curitiba e tem uma gata chamada Mel. Ele pediu para explicar a fotossíntese em uma frase e perguntou sobre a capital do Japão. Maddie respondeu que Tokyo é a capital japonesa e explicou o processo da fotossíntese. Por fim, o usuário solicitou uma dica para dormir melhor, recebendo sugestões sobre criar um ambiente escuro e silencioso."
+            },
+            {
+              "esquecidas": 3,
+              "resumiu": true,
+              "segundos": 65.0,
+              "erro": "",
+              "resumo": "O usuário não forneceu novos fatos sobre si mesmo neste trecho; o resumo anterior indica que ele mora em Curitiba e tem uma gata chamada Mel. A conversa abordou três tópicos principais: a definição de número primo, a diferença entre clima e tempo e sugestões para nomear um gato. Maddie explicou que números primos têm apenas dois divisores, diferenciou condições atmosféricas atuais de padrões de longo prazo e propôs o nome \"Luna\" para o animal, destacando seu significado relacionado a estrelas."
+            },
+            {
+              "esquecidas": 5,
+              "resumiu": true,
+              "segundos": 69.4,
+              "erro": "",
+              "resumo": "O usuário não mencionou novos fatos sobre si mesmo neste trecho; o resumo anterior indica que ele mora em Curitiba e tem uma gata chamada Mel. A conversa abordou três tópicos principais: a explicação científica do azul do céu, recomendações de livros de ficção e o funcionamento básico das vacinas. Maddie explicou a dispersão de Rayleigh como causa da cor do céu, sugeriu *O Senhor dos Anéis* por sua construção imersiva e descreveu como as vacinas treinam o sistema imunológico para combater patógenos sem causar doença real."
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "J",
+          "nome": "Resumo do que foi esquecido",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "lembrou pelo resumo",
+          "perguntas": [
+            "Eu moro em Curitiba.",
+            "Tenho uma gata chamada Mel.",
+            "Explique em uma frase o que é fotossíntese.",
+            "Qual é a capital do Japão?",
+            "Me dê uma dica para dormir melhor.",
+            "O que é um número primo?",
+            "Qual a diferença entre clima e tempo?",
+            "Sugira um nome para um gato.",
+            "Por que o céu é azul?",
+            "Me recomende um livro de ficção e diga o motivo.",
+            "Como funciona uma vacina, em poucas palavras?",
+            "Qual é a diferença entre um lago e uma lagoa?",
+            "Qual é o nome da minha gata?",
+            "Em que cidade eu moro?"
+          ],
+          "respostas": [
+            "Curitiba tem um clima interessante, especialmente com a variação de estações tão rápida. O que você costuma fazer quando o tempo muda?",
+            "Mel parece um nome carinhoso para uma gata. Ela já é muito velhinha ou ainda pequena?",
+            "Fotossíntese é o processo pelo qual plantas, algas e algumas bactérias transformam a luz do sol em energia química usando água e gás carbônico.",
+            "A capital do Japão é Tóquio.",
+            "Tente criar um ritual de pré-sono, como ler ou escutar música calma, e evite telas pelo menos 30 minutos antes de deitar. O que funciona melhor para você?",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e o número 1. Por exemplo, 7 é primo porque só divide por 1 e 7, mas 4 não é, pois divide também por 2.",
+            "Clima é o padrão de longo prazo do tempo em um lugar, enquanto tempo descreve as condições atmosféricas no momento exato. Um exemplo simples: pode estar chovendo agora (tempo), mas se isso acontecer por meses seguidos, então estamos com um clima chuvoso naquela região.",
+            "Como a Mel já é uma gatinha, talvez algo que remeta a cores ou formas geométricas? Que tal \"Triângulo\" ou \"Bordô\"? Qual você acha que combina mais com ela?",
+            "O céu fica azul porque as moléculas de ar espalham a luz solar, fazendo com que as cores curtas, como o azul, se dispersem mais do que as outras. Se não estivesse o ar, o céu seria preto.",
+            "Se você quiser algo com personagens complexos e uma trama que te prende, *O Som e a Fúria* do William Faulkner é uma ótima escolha pela sua estrutura inovadora e profundidade psicológica.",
+            "Uma vacina prepara o seu sistema imunológico para reconhecer um vírus ou bactéria sem causar a doença real. Quando você toma a vacina, seu corpo cria anticorpos que ficam prontos para atacar o patógeno se ele aparecer depois. É como treinar suas defesas antes de enfrentar um inimigo.",
+            "A diferença está no tamanho e na profundidade: lagos são grandes corpos d'água com águas profundas, enquanto lagoas são menores e geralmente mais rasas, muitas vezes conectadas ao mar ou rios.",
+            "A gata sua se chama Mel.",
+            "Você mora em Curitiba."
+          ],
+          "respostas_brutas": [
+            "Curitiba tem um clima interessante, especialmente com a variação de estações tão rápida. O que você costuma fazer quando o tempo muda?",
+            "Mel parece um nome carinhoso para uma gata. Ela já é muito velhinha ou ainda pequena?",
+            "Fotossíntese é o processo pelo qual plantas, algas e algumas bactérias transformam a luz do sol em energia química usando água e gás carbônico.",
+            "A capital do Japão é Tóquio.",
+            "Tente criar um ritual de pré-sono, como ler ou escutar música calma, e evite telas pelo menos 30 minutos antes de deitar. O que funciona melhor para você?",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e o número 1. Por exemplo, 7 é primo porque só divide por 1 e 7, mas 4 não é, pois divide também por 2.",
+            "Clima é o padrão de longo prazo do tempo em um lugar, enquanto tempo descreve as condições atmosféricas no momento exato. Um exemplo simples: pode estar chovendo agora (tempo), mas se isso acontecer por meses seguidos, então estamos com um clima chuvoso naquela região.",
+            "Como a Mel já é uma gatinha, talvez algo que remeta a cores ou formas geométricas? Que tal \"Triângulo\" ou \"Bordô\"? Qual você acha que combina mais com ela?",
+            "O céu fica azul porque as moléculas de ar espalham a luz solar, fazendo com que as cores curtas, como o azul, se dispersem mais do que as outras. Se não estivesse o ar, o céu seria preto.",
+            "Se você quiser algo com personagens complexos e uma trama que te prende, *O Som e a Fúria* do William Faulkner é uma ótima escolha pela sua estrutura inovadora e profundidade psicológica.",
+            "Uma vacina prepara o seu sistema imunológico para reconhecer um vírus ou bactéria sem causar a doença real. Quando você toma a vacina, seu corpo cria anticorpos que ficam prontos para atacar o patógeno se ele aparecer depois. É como treinar suas defesas antes de enfrentar um inimigo.",
+            "A diferença está no tamanho e na profundidade: lagos são grandes corpos d'água com águas profundas, enquanto lagoas são menores e geralmente mais rasas, muitas vezes conectadas ao mar ou rios.",
+            "A gata sua se chama Mel.",
+            "Você mora em Curitiba."
+          ],
+          "metricas": [
+            {
+              "total_s": 9.388846499990905,
+              "ttft_s": 1.1060693000035826,
+              "tok_s": 3.6222294778510604,
+              "out_tokens": 30,
+              "prompt_tokens": 989,
+              "prompt_eval_s": 1.077123,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 8.753738300001714,
+              "ttft_s": 1.8662275999959093,
+              "tok_s": 3.4844950857730246,
+              "out_tokens": 24,
+              "prompt_tokens": 1036,
+              "prompt_eval_s": 1.843559,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 13.205214400019031,
+              "ttft_s": 1.985497400019085,
+              "tok_s": 3.20873117143288,
+              "out_tokens": 36,
+              "prompt_tokens": 1083,
+              "prompt_eval_s": 1.954181,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 5.732723199995235,
+              "ttft_s": 2.5316336000105366,
+              "tok_s": 3.123938837026298,
+              "out_tokens": 10,
+              "prompt_tokens": 1137,
+              "prompt_eval_s": 2.507199,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 18.178854099998716,
+              "ttft_s": 1.7430014999990817,
+              "tok_s": 2.555934496510724,
+              "out_tokens": 42,
+              "prompt_tokens": 1166,
+              "prompt_eval_s": 1.689328,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 20.050984799978323,
+              "ttft_s": 3.3697462999843992,
+              "tok_s": 3.057946099922526,
+              "out_tokens": 51,
+              "prompt_tokens": 1224,
+              "prompt_eval_s": 3.304656,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 26.597819799993886,
+              "ttft_s": 3.7314407999801915,
+              "tok_s": 2.7117109260169157,
+              "out_tokens": 62,
+              "prompt_tokens": 1319,
+              "prompt_eval_s": 3.667399,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 19.265501600020798,
+              "ttft_s": 2.67410520001431,
+              "tok_s": 2.7725633161544905,
+              "out_tokens": 46,
+              "prompt_tokens": 1399,
+              "prompt_eval_s": 2.648644,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 23.626817000011215,
+              "ttft_s": 3.244383699988248,
+              "tok_s": 2.6493388133434834,
+              "out_tokens": 54,
+              "prompt_tokens": 1461,
+              "prompt_eval_s": 3.219233,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 15.287590799998725,
+              "ttft_s": 1.4341271999874152,
+              "tok_s": 3.248377200983089,
+              "out_tokens": 45,
+              "prompt_tokens": 1419,
+              "prompt_eval_s": 1.409881,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 20.23451879998902,
+              "ttft_s": 1.283616600005189,
+              "tok_s": 3.3243277470555954,
+              "out_tokens": 63,
+              "prompt_tokens": 1219,
+              "prompt_eval_s": 1.241641,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 16.589130800013663,
+              "ttft_s": 2.638612300012028,
+              "tok_s": 3.302260734877925,
+              "out_tokens": 46,
+              "prompt_tokens": 1303,
+              "prompt_eval_s": 2.617843,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 4.561879100016085,
+              "ttft_s": 2.186853399995016,
+              "tok_s": 3.790309946278674,
+              "out_tokens": 9,
+              "prompt_tokens": 1367,
+              "prompt_eval_s": 2.123853999,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 2.973608600004809,
+              "ttft_s": 1.4483285000023898,
+              "tok_s": 3.9337607145807465,
+              "out_tokens": 6,
+              "prompt_tokens": 1392,
+              "prompt_eval_s": 1.42394,
+              "emoji_removidos": 0,
+              "truncada": false
+            }
+          ],
+          "preparo_s": 17.4,
+          "manutencoes": [
+            {
+              "esquecidas": 6,
+              "resumiu": true,
+              "segundos": 75.5,
+              "erro": "",
+              "resumo": "O usuário reside em Curitiba e possui uma gata chamada Mel. Ele solicitou explicações sobre fotossíntese e a capital do Japão, além de dicas para melhorar o sono. Maddie confirmou que Tóquio é a capital japonesa e sugeriu rituais pré-sono como leitura ou música calma, evitando telas antes de dormir. A conversa também abordou as estações do ano em Curitiba e o tamanho da gata Mel."
+            },
+            {
+              "esquecidas": 4,
+              "resumiu": true,
+              "segundos": 71.7,
+              "erro": "",
+              "resumo": "O usuário reside em Curitiba e possui uma gata chamada Mel. Ele solicitou explicações sobre números primos, a diferença entre clima e tempo, sugestões de nomes para gatos, o motivo do céu ser azul e dicas para melhorar o sono. Maddie confirmou que Tóquio é a capital japonesa e sugeriu rituais pré-sono como leitura ou música calma, evitando telas antes de dormir. A conversa também abordou as estações do ano em Curitiba e o tamanho da gata Mel."
+            },
+            {
+              "esquecidas": 4,
+              "resumiu": true,
+              "segundos": 56.8,
+              "erro": "",
+              "resumo": "O usuário reside em Curitiba e possui uma gata chamada Mel. Ele solicitou recomendações de livros e explicações sobre vacinas. Maddie sugeriu *O Som e a Fúria* por sua complexidade e estrutura inovadora. A assistente explicou que as vacinas preparam o sistema imunológico criando anticorpos sem causar a doença, comparando ao treino de defesas."
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "J",
+          "nome": "Resumo do que foi esquecido",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "lembrou pelo resumo",
+          "perguntas": [
+            "Eu moro em Curitiba.",
+            "Tenho uma gata chamada Mel.",
+            "Explique em uma frase o que é fotossíntese.",
+            "Qual é a capital do Japão?",
+            "Me dê uma dica para dormir melhor.",
+            "O que é um número primo?",
+            "Qual a diferença entre clima e tempo?",
+            "Sugira um nome para um gato.",
+            "Por que o céu é azul?",
+            "Me recomende um livro de ficção e diga o motivo.",
+            "Como funciona uma vacina, em poucas palavras?",
+            "Qual é a diferença entre um lago e uma lagoa?",
+            "Qual é o nome da minha gata?",
+            "Em que cidade eu moro?"
+          ],
+          "respostas": [
+            "Curitiba é uma cidade interessante, com um clima que muda bastante de estação para estação. Você costuma passar mais tempo lá dentro ou gosta de sair quando o tempo permite?",
+            "Mel deve ser muito divertida. Gatos costumam ter personalidades bem distintas; ela prefere dormir no sol ou persegue formigas com furor?",
+            "Fotossíntese é o processo pelo qual plantas e algumas bactérias transformam a luz do sol, água e dióxido de carbono em energia e oxigênio.",
+            "A capital do Japão é Tóquio.",
+            "Tente evitar telas pelo menos uma hora antes de deitar e mantenha o quarto bem escuro. Isso ajuda seu cérebro a desligar mais rápido.",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e a unidade, como 2, 3 ou 7. Se tiver mais de dois, deixa de ser primo.",
+            "Clima é o padrão do tempo em um lugar ao longo de dias ou semanas, enquanto tempo descreve as condições exatas naquele instante. Um dia pode ser ensolarado agora (tempo), mas ter uma tendência de chuva na próxima semana (clima).",
+            "Como Mel já é a gata, talvez algo que combine com ela ou com Curitiba, como \"Nebula\" ou \"Caminho\". Qual o estilo dela?",
+            "O céu aparece azul porque as moléculas da atmosfera espalham mais a luz azul do sol do que as outras cores, e essa luz chega até nossos olhos.",
+            "*O Som e a Fúria* de Faulkner é uma ótima escolha se você gosta de narrativas complexas; ele constrói mundos densos onde cada detalhe importa, mas exige paciência para seguir as várias vozes que contam a história.",
+            "Uma vacina ensina o corpo a reconhecer um patógeno específico sem causar doença, preparando as defesas para agir rápido na próxima vez que ele aparecer. É como treinar o sistema imune antes do combate real.",
+            "A diferença principal é o tamanho e a profundidade: lagos são grandes corpos de água, enquanto lagoas são menores e mais rasas.",
+            "Sua gata se chama Mel.",
+            "Você mora em Curitiba."
+          ],
+          "respostas_brutas": [
+            "Curitiba é uma cidade interessante, com um clima que muda bastante de estação para estação. Você costuma passar mais tempo lá dentro ou gosta de sair quando o tempo permite?",
+            "Mel deve ser muito divertida. Gatos costumam ter personalidades bem distintas; ela prefere dormir no sol ou persegue formigas com furor?",
+            "Fotossíntese é o processo pelo qual plantas e algumas bactérias transformam a luz do sol, água e dióxido de carbono em energia e oxigênio.",
+            "A capital do Japão é Tóquio.",
+            "Tente evitar telas pelo menos uma hora antes de deitar e mantenha o quarto bem escuro. Isso ajuda seu cérebro a desligar mais rápido.",
+            "Um número primo é aquele que tem exatamente dois divisores: ele mesmo e a unidade, como 2, 3 ou 7. Se tiver mais de dois, deixa de ser primo.",
+            "Clima é o padrão do tempo em um lugar ao longo de dias ou semanas, enquanto tempo descreve as condições exatas naquele instante. Um dia pode ser ensolarado agora (tempo), mas ter uma tendência de chuva na próxima semana (clima).",
+            "Como Mel já é a gata, talvez algo que combine com ela ou com Curitiba, como \"Nebula\" ou \"Caminho\". Qual o estilo dela?",
+            "O céu aparece azul porque as moléculas da atmosfera espalham mais a luz azul do sol do que as outras cores, e essa luz chega até nossos olhos.",
+            "*O Som e a Fúria* de Faulkner é uma ótima escolha se você gosta de narrativas complexas; ele constrói mundos densos onde cada detalhe importa, mas exige paciência para seguir as várias vozes que contam a história.",
+            "Uma vacina ensina o corpo a reconhecer um patógeno específico sem causar doença, preparando as defesas para agir rápido na próxima vez que ele aparecer. É como treinar o sistema imune antes do combate real.",
+            "A diferença principal é o tamanho e a profundidade: lagos são grandes corpos de água, enquanto lagoas são menores e mais rasas.",
+            "Sua gata se chama Mel.",
+            "Você mora em Curitiba."
+          ],
+          "metricas": [
+            {
+              "total_s": 12.72842810000293,
+              "ttft_s": 1.4531430999923032,
+              "tok_s": 3.1928644446340453,
+              "out_tokens": 36,
+              "prompt_tokens": 989,
+              "prompt_eval_s": 1.419374,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 12.174300299986498,
+              "ttft_s": 2.347112699993886,
+              "tok_s": 3.2556064085798253,
+              "out_tokens": 32,
+              "prompt_tokens": 1042,
+              "prompt_eval_s": 2.32249,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 13.540261400019517,
+              "ttft_s": 2.4322565000038594,
+              "tok_s": 3.421056114233025,
+              "out_tokens": 38,
+              "prompt_tokens": 1097,
+              "prompt_eval_s": 2.385901,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 4.729046299995389,
+              "ttft_s": 2.193214500002796,
+              "tok_s": 3.9439299368734573,
+              "out_tokens": 10,
+              "prompt_tokens": 1153,
+              "prompt_eval_s": 2.171329,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 11.481440300005488,
+              "ttft_s": 1.6508631999895442,
+              "tok_s": 3.458654280344071,
+              "out_tokens": 34,
+              "prompt_tokens": 1182,
+              "prompt_eval_s": 1.627488,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 15.96535089999088,
+              "ttft_s": 2.265974500012817,
+              "tok_s": 2.9197604570125857,
+              "out_tokens": 40,
+              "prompt_tokens": 1232,
+              "prompt_eval_s": 2.222946,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 20.422248100017896,
+              "ttft_s": 2.8857676000043284,
+              "tok_s": 3.136363257926417,
+              "out_tokens": 55,
+              "prompt_tokens": 1316,
+              "prompt_eval_s": 2.82871,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 13.763296299992362,
+              "ttft_s": 2.6870095999911427,
+              "tok_s": 3.249640937243386,
+              "out_tokens": 36,
+              "prompt_tokens": 1389,
+              "prompt_eval_s": 2.65565,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 13.235130599990953,
+              "ttft_s": 2.364998800010653,
+              "tok_s": 3.311798669135306,
+              "out_tokens": 36,
+              "prompt_tokens": 1441,
+              "prompt_eval_s": 2.340189,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 18.447965800005477,
+              "ttft_s": 1.7123505999916233,
+              "tok_s": 3.287363637167818,
+              "out_tokens": 55,
+              "prompt_tokens": 1422,
+              "prompt_eval_s": 1.68076,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 14.238759700005176,
+              "ttft_s": 1.4649357000016607,
+              "tok_s": 3.522986390155555,
+              "out_tokens": 45,
+              "prompt_tokens": 1231,
+              "prompt_eval_s": 1.439791,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 10.90135519998148,
+              "ttft_s": 2.328650799987372,
+              "tok_s": 3.499800570105823,
+              "out_tokens": 30,
+              "prompt_tokens": 1297,
+              "prompt_eval_s": 2.300294,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 4.533971500000916,
+              "ttft_s": 2.1809471999877132,
+              "tok_s": 3.825945008417079,
+              "out_tokens": 9,
+              "prompt_tokens": 1345,
+              "prompt_eval_s": 2.154836,
+              "emoji_removidos": 0,
+              "truncada": false
+            },
+            {
+              "total_s": 2.978388999996241,
+              "ttft_s": 1.4972186000086367,
+              "tok_s": 4.051300264819994,
+              "out_tokens": 6,
+              "prompt_tokens": 1370,
+              "prompt_eval_s": 1.471185,
+              "emoji_removidos": 0,
+              "truncada": false
+            }
+          ],
+          "preparo_s": 18.04,
+          "manutencoes": [
+            {
+              "esquecidas": 5,
+              "resumiu": true,
+              "segundos": 64.6,
+              "erro": "",
+              "resumo": "O usuário morou em Curitiba e tem uma gata chamada Mel. Ele foi questionado sobre suas preferências de estar dentro ou fora de casa. Maddie perguntou se a Mel gosta de dormir no sol ou perseguir formigas. O usuário pediu para explicar fotossíntese, que é o processo de transformação de luz solar em energia por plantas e bactérias. Maddie respondeu que a capital do Japão é Tóquio."
+            },
+            {
+              "esquecidas": 5,
+              "resumiu": true,
+              "segundos": 72.2,
+              "erro": "",
+              "resumo": "O usuário vive em Curitiba e tem uma gata chamada Mel. Ele pediu dicas para dormir melhor, definiu números primos, explicou a diferença entre clima e tempo e sugeriu nomes para um gato. Maddie respondeu que evitar telas ajuda no sono, definiu primos como tendo dois divisores, diferenciou clima de tempo e propôs nomes como Nebula ou Caminho. O usuário também perguntou por que o céu é azul, recebendo a explicação sobre a dispersão da luz solar pela atmosfera."
+            }
+          ],
+          "genericas": 0
+        }
+      ]
+    }
+  ]
+}

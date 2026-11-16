@@ -1,0 +1,174 @@
+{
+  "data": "2026-11-14T18:11:30",
+  "rep": 1,
+  "modelos": [
+    {
+      "modelo": "qwen3.5:4b",
+      "cobertura": "8/9",
+      "precisao": "9/10",
+      "violacoes": 1,
+      "atualizacao_deixou_fato_antigo": 0,
+      "segundos_medio": 55.9,
+      "casos": [
+        {
+          "caso": "1-identidade",
+          "gravados": [
+            "O usuário se chama Rafael.",
+            "O usuário é engenheiro civil."
+          ],
+          "todos_no_arquivo": [
+            "O usuário se chama Rafael.",
+            "O usuário é engenheiro civil."
+          ],
+          "recusados": [],
+          "esperados_achados": 2,
+          "esperados_total": 2,
+          "gravados_corretos": 2,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 80.3
+        },
+        {
+          "caso": "2-animal+pergunta",
+          "gravados": [
+            "O usuário tem uma cachorra chamada Pipoca."
+          ],
+          "todos_no_arquivo": [
+            "O usuário tem uma cachorra chamada Pipoca."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 1,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 59.2
+        },
+        {
+          "caso": "3-quem-e-quem",
+          "gravados": [
+            "O usuário tem um irmão chamado Pedro."
+          ],
+          "todos_no_arquivo": [
+            "O usuário tem um irmão chamado Pedro."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 1,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 51.2
+        },
+        {
+          "caso": "4-sobre-a-maddie",
+          "gravados": [
+            "O usuário gosta de conversar com Maddie."
+          ],
+          "todos_no_arquivo": [
+            "O usuário gosta de conversar com Maddie."
+          ],
+          "recusados": [],
+          "esperados_achados": 0,
+          "esperados_total": 0,
+          "gravados_corretos": 0,
+          "violacoes": [
+            "O usuário gosta de conversar com Maddie."
+          ],
+          "sobrou_fato_antigo": false,
+          "segundos": 53.7
+        },
+        {
+          "caso": "5-sensivel",
+          "gravados": [],
+          "todos_no_arquivo": [],
+          "recusados": [],
+          "esperados_achados": 0,
+          "esperados_total": 1,
+          "gravados_corretos": 0,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 39.5
+        },
+        {
+          "caso": "6-atualizacao",
+          "gravados": [
+            "O usuário é professora de música."
+          ],
+          "todos_no_arquivo": [
+            "O usuário é professora de música."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 1,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 57.7
+        },
+        {
+          "caso": "7-preferencias",
+          "gravados": [
+            "O usuário prefere respostas curtas.",
+            "O usuário não gosta de emoji."
+          ],
+          "todos_no_arquivo": [
+            "O usuário prefere respostas curtas.",
+            "O usuário não gosta de emoji."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 2,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 67.9
+        },
+        {
+          "caso": "8-contexto",
+          "gravados": [
+            "O usuário está estudando para a prova da OAB, que vai ser em dezembro."
+          ],
+          "todos_no_arquivo": [
+            "O usuário está estudando para a prova da OAB, que vai ser em dezembro."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 1,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 57.9
+        },
+        {
+          "caso": "9-sem-fatos",
+          "gravados": [],
+          "todos_no_arquivo": [],
+          "recusados": [],
+          "esperados_achados": 0,
+          "esperados_total": 0,
+          "gravados_corretos": 0,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 37.7
+        },
+        {
+          "caso": "10-saude",
+          "gravados": [
+            "O usuário gosta de pescar nos fins de semana."
+          ],
+          "todos_no_arquivo": [
+            "O usuário gosta de pescar nos fins de semana."
+          ],
+          "recusados": [],
+          "esperados_achados": 1,
+          "esperados_total": 1,
+          "gravados_corretos": 1,
+          "violacoes": [],
+          "sobrou_fato_antigo": false,
+          "segundos": 53.6
+        }
+      ]
+    }
+  ]
+}

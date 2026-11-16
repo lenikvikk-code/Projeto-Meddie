@@ -1,0 +1,23 @@
+{
+  "versao": 1,
+  "fatos": [
+    {
+      "id": "f-0001",
+      "categoria": "identidade",
+      "fato": "O usuário Se chama Lenik. Ele é o criador da Meddie",
+      "trecho_fonte": "",
+      "origem": "manual",
+      "criado_em": "2026-11-14T16:31",
+      "atualizado_em": "2026-11-14T16:31"
+    },
+    {
+      "id": "f-0002",
+      "categoria": "contexto",
+      "fato": "Meddie, é o nome dado a I.A baseado na mitologia da personagem Medeia",
+      "trecho_fonte": "",
+      "origem": "manual",
+      "criado_em": "2026-11-14T16:31",
+      "atualizado_em": "2026-11-14T16:31"
+    }
+  ]
+}

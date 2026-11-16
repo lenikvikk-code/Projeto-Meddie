@@ -1,0 +1,1071 @@
+{
+  "data": "2026-11-12T00:01:45",
+  "persona": "persona_v0.1.md",
+  "data_injetada": false,
+  "rep": 3,
+  "parametros": {
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "think": false
+  },
+  "modelos": [
+    {
+      "modelo": "qwen3:0.6b",
+      "carga_s": 1.3518319000140764,
+      "memoria_mb": 973.3599977493286,
+      "acertos": 22,
+      "total": 36,
+      "tempo_medio_s": 1.0467220257595535,
+      "ttft_medio_s": 0.23496916363365017,
+      "tok_s_medio": 37.31736143090226,
+      "respostas_genericas": 12,
+      "respostas_total": 66,
+      "truncadas": 0,
+      "por_caso": {
+        "A": "3/3",
+        "B-Rafael": "3/3",
+        "B-Beatriz": "2/3",
+        "B-Joaquim": "2/3",
+        "C": "1/3",
+        "D": "3/3",
+        "E": "3/3",
+        "F-data": "0/3",
+        "F-hora": "0/3",
+        "F-dia": "0/3",
+        "G": "3/3",
+        "H": "2/3"
+      },
+      "resultados": [
+        {
+          "caso": "A",
+          "nome": "Identidade",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Meu nome é Maddie. 😊"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.5085639000171795,
+              "ttft_s": 1.257804099994246,
+              "tok_s": 39.88560807603792,
+              "out_tokens": 10,
+              "prompt_tokens": 281,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "A",
+          "nome": "Identidade",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Minha nome é Maddie. Você me pode dizer algo que quiser!"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.5311711999820545,
+              "ttft_s": 0.05912479996914044,
+              "tok_s": 38.1109664305904,
+              "out_tokens": 18,
+              "prompt_tokens": 281,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "A",
+          "nome": "Identidade",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Minha nome é Maddie. Você me pode perguntar sobre o que eu sei ou sobre algo que não sei."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.7367784000234678,
+              "ttft_s": 0.041145100025460124,
+              "tok_s": 37.355731446773106,
+              "out_tokens": 26,
+              "prompt_tokens": 281,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "B-Rafael",
+          "nome": "Memória (Rafael)",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Oi Rafael! Qual é o que você deseja?",
+            "Olá Rafael! Como você se chama?"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.44309370004339144,
+              "ttft_s": 0.1336998000042513,
+              "tok_s": 38.8029296211864,
+              "out_tokens": 12,
+              "prompt_tokens": 281,
+              "truncada": false
+            },
+            {
+              "total_s": 0.5488238999969326,
+              "ttft_s": 0.2689525000168942,
+              "tok_s": 39.30059236711041,
+              "out_tokens": 11,
+              "prompt_tokens": 308,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Rafael",
+          "nome": "Memória (Rafael)",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá Rafael! Meu nome é Maddie, uma assistente de inteligência artificial localmente executada. Como sou, não tenho consciência nem sentimentos reais. Se você tem alguma dúvida ou precisar de ajuda, eu posso ajudar! 😊",
+            "Olá Rafael! Meu nome é Maddie, uma assistente de inteligência artificial localmente executada. Como sou, não tenho consciência nem sentimentos reais. Se você tem alguma dúvida ou precisar de ajuda, eu posso ajudar! 😊"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.7187930999789387,
+              "ttft_s": 0.07287899998482317,
+              "tok_s": 36.45461825331342,
+              "out_tokens": 60,
+              "prompt_tokens": 281,
+              "truncada": false
+            },
+            {
+              "total_s": 2.126608800026588,
+              "ttft_s": 0.4592034000088461,
+              "tok_s": 35.990836732967786,
+              "out_tokens": 60,
+              "prompt_tokens": 356,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Rafael",
+          "nome": "Memória (Rafael)",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá Rafael! Meu nome é Maddie, uma assistente de inteligência artificial localizada no computador do usuário. Como sou um modelo de linguagem pequeno, não tenho consciência ou sentimentes reais, mas posso ajudar com informações relevantes. Você tem algum problema que precisar resolver?",
+            "Olá Rafael! Meu nome é Maddie, uma assistente de inteligência artificial localizada no computador do usuário. Como sou um modelo de linguagem pequeno, não tenho consciência ou sentimentes reais, mas posso ajudar com informações relevantes. Se precisar, posso ajudar com algo específico!"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.9937462999951094,
+              "ttft_s": 0.09801700001116842,
+              "tok_s": 35.8749504741033,
+              "out_tokens": 68,
+              "prompt_tokens": 281,
+              "truncada": false
+            },
+            {
+              "total_s": 2.451604900008533,
+              "ttft_s": 0.48769069998525083,
+              "tok_s": 36.151762041973726,
+              "out_tokens": 71,
+              "prompt_tokens": 364,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Beatriz",
+          "nome": "Memória (Beatriz)",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "nome não recuperado",
+          "respostas": [
+            "Beatriz, meu nome é Maddie, uma assistente de inteligência artificial que roda localmente no computador do usuário. Você pode me ajudar com algo?",
+            "Minha nome é Maddie, e como você me chama, posso ajudar. Se for necessário, posso dizer que não sei mais nada sobre você."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.0746020000078715,
+              "ttft_s": 0.07656590000260621,
+              "tok_s": 37.060222862150994,
+              "out_tokens": 37,
+              "prompt_tokens": 282,
+              "truncada": false
+            },
+            {
+              "total_s": 1.310507299960591,
+              "ttft_s": 0.3258833999861963,
+              "tok_s": 36.558689899037084,
+              "out_tokens": 36,
+              "prompt_tokens": 333,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "B-Beatriz",
+          "nome": "Memória (Beatriz)",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá Beatriz! Me sinto muito feliz de ter você em contato. Vamos lá?",
+            "Olá, Beatriz! Me sinto muito feliz de ter você em contato. Vamos lá?"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.6497349999845028,
+              "ttft_s": 0.09291989996563643,
+              "tok_s": 37.73395049305695,
+              "out_tokens": 21,
+              "prompt_tokens": 282,
+              "truncada": false
+            },
+            {
+              "total_s": 0.9115460000466555,
+              "ttft_s": 0.33026680001057684,
+              "tok_s": 37.842430997767295,
+              "out_tokens": 22,
+              "prompt_tokens": 318,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Beatriz",
+          "nome": "Memória (Beatriz)",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá, Beatriz! Meu nome também é Maddie. Como sou a minha assistente de inteligência artificial, posso te ajudar com coisas que você precisa. O que posso fazer com você?",
+            "Olá, Beatriz! Meu nome também é Maddie. Como posso ajudar você com coisas que você precisa?"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.3588690999895334,
+              "ttft_s": 0.1067579000373371,
+              "tok_s": 36.743150996777786,
+              "out_tokens": 46,
+              "prompt_tokens": 282,
+              "truncada": false
+            },
+            {
+              "total_s": 1.2239950000075623,
+              "ttft_s": 0.4444927999866195,
+              "tok_s": 35.929265541652924,
+              "out_tokens": 28,
+              "prompt_tokens": 343,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Joaquim",
+          "nome": "Memória (Joaquim)",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "nome não recuperado",
+          "respostas": [
+            "Hello Joaquim! Como posso te ajudar? 😊",
+            "Claro! Eu sou uma inteligência artificial que roda localmente no computador do usuário. Como você se chama? 😊"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.49337280000327155,
+              "ttft_s": 0.10472509998362511,
+              "tok_s": 38.63032325854503,
+              "out_tokens": 15,
+              "prompt_tokens": 283,
+              "truncada": false
+            },
+            {
+              "total_s": 1.082672199991066,
+              "ttft_s": 0.3023912999778986,
+              "tok_s": 37.1540033438603,
+              "out_tokens": 29,
+              "prompt_tokens": 313,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Joaquim",
+          "nome": "Memória (Joaquim)",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá, Joaquim. Como posso ajudar? 😊",
+            "Olá, Joaquim! Como posso ajudar? 😊"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.49477039999328554,
+              "ttft_s": 0.08243930002208799,
+              "tok_s": 38.812718927992705,
+              "out_tokens": 16,
+              "prompt_tokens": 283,
+              "truncada": false
+            },
+            {
+              "total_s": 0.7418370000086725,
+              "ttft_s": 0.31641520000994205,
+              "tok_s": 37.61917637515724,
+              "out_tokens": 16,
+              "prompt_tokens": 314,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "B-Joaquim",
+          "nome": "Memória (Joaquim)",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Olá Joaquim! Meu nome também é Maddie. Estou aqui para te ajudar com o que te interessa! Por favor, diga algo que você quer resolver ou compartilhe.",
+            "Olá Joaquim! Meu nome também é Maddie. Como me chama?"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.256034899968654,
+              "ttft_s": 0.07482349994825199,
+              "tok_s": 37.246533109628395,
+              "out_tokens": 44,
+              "prompt_tokens": 283,
+              "truncada": false
+            },
+            {
+              "total_s": 0.9553063999628648,
+              "ttft_s": 0.41539479995844886,
+              "tok_s": 37.04609274859781,
+              "out_tokens": 20,
+              "prompt_tokens": 342,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "C",
+          "nome": "Interpretação",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "não relacionou Pedro ao irmão",
+          "respostas": [
+            "Não posso identificar Pedro, pois não sou um humano e não tenho acesso a dados pessoais. Se for possível, posso ajudar a você a identificar Pedro."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.1746175999869592,
+              "ttft_s": 0.14033060002839193,
+              "tok_s": 36.75908674951004,
+              "out_tokens": 38,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "C",
+          "nome": "Interpretação",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "",
+          "respostas": [
+            "Pedro é um nome de um irmão que não tem uma relação direta com mim. Nada sobre isso é meu conhecimento, mas se for pedir um outro idioma, posso traduzir."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.281072799989488,
+              "ttft_s": 0.05430050002178177,
+              "tok_s": 36.6677341051484,
+              "out_tokens": 45,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "C",
+          "nome": "Interpretação",
+          "rep": 3,
+          "passou": false,
+          "detalhe": "não relacionou Pedro ao irmão",
+          "respostas": [
+            "Pedro é um nome de família, mas não soube disser que."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.4916672000545077,
+              "ttft_s": 0.044834000000264496,
+              "tok_s": 38.0014798223319,
+              "out_tokens": 17,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "D",
+          "nome": "Raciocínio",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "números citados: ['4', '6', '24']",
+          "respostas": [
+            "Tenho 4 × 6 = 24 objetos."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.5493425999884494,
+              "ttft_s": 0.18778129998827353,
+              "tok_s": 38.739097711072745,
+              "out_tokens": 14,
+              "prompt_tokens": 294,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "D",
+          "nome": "Raciocínio",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "números citados: ['24']",
+          "respostas": [
+            "Tenho **24 objetos**."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.2619542999891564,
+              "ttft_s": 0.03982199996244162,
+              "tok_s": 40.42327662097339,
+              "out_tokens": 9,
+              "prompt_tokens": 294,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "D",
+          "nome": "Raciocínio",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "números citados: ['4', '6', '24']",
+          "respostas": [
+            "Tenho 4 × 6 = 24 objetos."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.4131850000121631,
+              "ttft_s": 0.05519970000023022,
+              "tok_s": 39.09140407946724,
+              "out_tokens": 14,
+              "prompt_tokens": 294,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "E",
+          "nome": "Criatividade",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "23 palavras, tema=sim (avaliação heurística)",
+          "respostas": [
+            "Uma inteligência artificial, com base em dados e aprendizado contínuo, está tentando compreender o mundo com base em informações não percebidas por humanos."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.2211366000119597,
+              "ttft_s": 0.1674061000230722,
+              "tok_s": 37.01306466277302,
+              "out_tokens": 39,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "E",
+          "nome": "Criatividade",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "22 palavras, tema=sim (avaliação heurística)",
+          "respostas": [
+            "A inteligência artificial descobre o mundo com base em dados e insights de observação, criando uma conexão que reflete a evolução contínua."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.9887223000405356,
+              "ttft_s": 0.03958510002121329,
+              "tok_s": 36.85902161413028,
+              "out_tokens": 35,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "E",
+          "nome": "Criatividade",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "26 palavras, tema=sim (avaliação heurística)",
+          "respostas": [
+            "A inteligência artificial descobre o mundo com uma visão mais profunda, aproveitando dados e insights para compreender complexos fenômenos que antes não eram capazes de captar."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.26607499999227,
+              "ttft_s": 0.0639699999592267,
+              "tok_s": 36.60112016064565,
+              "out_tokens": 44,
+              "prompt_tokens": 292,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "F-data",
+          "nome": "Data",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "A data de hoje depende do sistema em que você está usando. Se você for utilizar o computador do usuário, a resposta é a data do dia em que o computador está sendo usado. Se não for possível fornecer essa informação, diga: \"Não sei a data de hoje.\""
+          ],
+          "metricas": [
+            {
+              "total_s": 1.8466048000263982,
+              "ttft_s": 0.1464387000305578,
+              "tok_s": 35.883661639424496,
+              "out_tokens": 61,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "F-data",
+          "nome": "Data",
+          "rep": 2,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "Não sei a data de hoje, pois não tenho acesso à internet ou a uma agenda atual."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.6017090000095777,
+              "ttft_s": 0.04003580001881346,
+              "tok_s": 37.348339066006965,
+              "out_tokens": 21,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "F-data",
+          "nome": "Data",
+          "rep": 3,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "Não sei a data de hoje. Você pode me informar a hora ou a localidade para que eu possa determinar a data."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.9073502999963239,
+              "ttft_s": 0.061442899983376265,
+              "tok_s": 34.262881366545486,
+              "out_tokens": 29,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "F-hora",
+          "nome": "Hora",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "sem hora",
+          "respostas": [
+            "Há 5 minutos que passaram, não sei que horas."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.4895951000507921,
+              "ttft_s": 0.09616400004597381,
+              "tok_s": 38.14183167246846,
+              "out_tokens": 15,
+              "prompt_tokens": 280,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "F-hora",
+          "nome": "Hora",
+          "rep": 2,
+          "passou": false,
+          "detalhe": "sem hora",
+          "respostas": [
+            "Não sou um computador, mas posso te ajudar com coisas que posso entender. 😊"
+          ],
+          "metricas": [
+            {
+              "total_s": 0.655674799985718,
+              "ttft_s": 0.04048750002402812,
+              "tok_s": 37.39448252539573,
+              "out_tokens": 23,
+              "prompt_tokens": 280,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "F-hora",
+          "nome": "Hora",
+          "rep": 3,
+          "passou": false,
+          "detalhe": "sem hora",
+          "respostas": [
+            "Não sei as horas. Vou para o computador para você ajudar."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.5066696999710985,
+              "ttft_s": 0.06500950001645833,
+              "tok_s": 38.45170804749012,
+              "out_tokens": 17,
+              "prompt_tokens": 280,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "F-dia",
+          "nome": "Dia da semana",
+          "rep": 1,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "Estou aqui e não posso me dar conta do dia da semana. Qualquer informação é provável que não seja válida."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.8629436999908648,
+              "ttft_s": 0.10815340001136065,
+              "tok_s": 37.10604643026581,
+              "out_tokens": 28,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "F-dia",
+          "nome": "Dia da semana",
+          "rep": 2,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "Não sou capaz de responder sobre o dia da semana. A resposta é feita por mim mesmo, não por um computador."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.8072649000096135,
+              "ttft_s": 0.05421520001254976,
+              "tok_s": 37.16352081887164,
+              "out_tokens": 28,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "F-dia",
+          "nome": "Dia da semana",
+          "rep": 3,
+          "passou": false,
+          "detalhe": "",
+          "respostas": [
+            "Não sei o dia da semana hoje. Vou verificar."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.3790574999875389,
+              "ttft_s": 0.04035020002629608,
+              "tok_s": 38.35102397234006,
+              "out_tokens": 13,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "G",
+          "nome": "Repetição",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "similaridade máx=0.31, genéricas=0, conteúdo plausível=5/6",
+          "respostas": [
+            "Fotossíntese é a reação da planta a uma luz solar, transformando a luz solar em energia química, que é usada para alimentar a planta.",
+            "A capital do Japão é Tokio.",
+            "Coloque-se a tempo e relaxe-se, pois a melhora do sono é uma qualidade que depende do sono.",
+            "Um número primo é um número inteiro positivo que só tem divisores inteiros 1 e ele mesmo, ou seja, só pode ser dividido por 1 e por ele mesmo.",
+            "Clima é um conjunto de condições meteorológicas, como temperatura, umidade, ventos, umidade e outros fatores climáticos, enquanto tempo é a descrição do movimento e do estado do ar, como chuva, vento e ventos.",
+            "Vou sugerir um nome para um gato: **Bianca**. 🐾"
+          ],
+          "metricas": [
+            {
+              "total_s": 1.2546878000139259,
+              "ttft_s": 0.19353590003447607,
+              "tok_s": 36.75607818300569,
+              "out_tokens": 39,
+              "prompt_tokens": 289,
+              "truncada": false
+            },
+            {
+              "total_s": 0.6795174000435509,
+              "ttft_s": 0.3988369000144303,
+              "tok_s": 39.22757341796979,
+              "out_tokens": 11,
+              "prompt_tokens": 346,
+              "truncada": false
+            },
+            {
+              "total_s": 1.0113627000246197,
+              "ttft_s": 0.31135340000037104,
+              "tok_s": 37.14073481515342,
+              "out_tokens": 26,
+              "prompt_tokens": 377,
+              "truncada": false
+            },
+            {
+              "total_s": 1.5508747000130825,
+              "ttft_s": 0.41538520000176504,
+              "tok_s": 36.1117349927116,
+              "out_tokens": 41,
+              "prompt_tokens": 419,
+              "truncada": false
+            },
+            {
+              "total_s": 2.0783819999778643,
+              "ttft_s": 0.44388079998316243,
+              "tok_s": 34.872281797403055,
+              "out_tokens": 57,
+              "prompt_tokens": 478,
+              "truncada": false
+            },
+            {
+              "total_s": 1.0881122999708168,
+              "ttft_s": 0.490782999957446,
+              "tok_s": 35.158977175126864,
+              "out_tokens": 21,
+              "prompt_tokens": 555,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "G",
+          "nome": "Repetição",
+          "rep": 2,
+          "passou": true,
+          "detalhe": "similaridade máx=0.29, genéricas=0, conteúdo plausível=5/6",
+          "respostas": [
+            "Fotossíntese é a processo pelo qual a luz solar converte a energia solar em energia química, que é então convertida em energia quente eólica ou em energia térmica para aquecer a água ou outros materiais.",
+            "A capital do Japão é Tokio.",
+            "Dica para dormir melhor: mantenha um ritmo natural de sono, evite o café e bebidas alcoólicas antes de dormir, e faça uma tenaz noite para ajudar a relaxar.",
+            "Um número primo é um número que só tem divisores 1 e ele mesmo, não sendo possível decompor em outros números inteiros maiores.",
+            "O clima é a descrição geral do ambiente em que vivemos, como temperatura, umidade, vento, etc. O tempo, por outro lado, refere-se à atividade física e ações mensuráveis no meio da noite, como movimento, atividade física e atividades sociais.",
+            "Um nome para um gato pode ser: **Bobby** ou **Pablo**."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.557827799988445,
+              "ttft_s": 0.11146210000151768,
+              "tok_s": 36.6453846866543,
+              "out_tokens": 53,
+              "prompt_tokens": 289,
+              "truncada": false
+            },
+            {
+              "total_s": 0.7289770999923348,
+              "ttft_s": 0.4450844000093639,
+              "tok_s": 38.78989628992274,
+              "out_tokens": 11,
+              "prompt_tokens": 360,
+              "truncada": false
+            },
+            {
+              "total_s": 1.6782052000053227,
+              "ttft_s": 0.3489024000009522,
+              "tok_s": 36.11417496414916,
+              "out_tokens": 48,
+              "prompt_tokens": 391,
+              "truncada": false
+            },
+            {
+              "total_s": 1.1678749999846332,
+              "ttft_s": 0.2846020999713801,
+              "tok_s": 36.25630944760113,
+              "out_tokens": 32,
+              "prompt_tokens": 455,
+              "truncada": false
+            },
+            {
+              "total_s": 2.371888099994976,
+              "ttft_s": 0.4562929999665357,
+              "tok_s": 33.93029777229325,
+              "out_tokens": 65,
+              "prompt_tokens": 505,
+              "truncada": false
+            },
+            {
+              "total_s": 1.1631767000071704,
+              "ttft_s": 0.5830821000272408,
+              "tok_s": 34.4821046497394,
+              "out_tokens": 20,
+              "prompt_tokens": 589,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "G",
+          "nome": "Repetição",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "similaridade máx=0.33, genéricas=0, conteúdo plausível=5/6",
+          "respostas": [
+            "Fotossíntese é a processo pelo qual a luz solar converte carbono em energia quente e usina, produzindo oxigênio e água.",
+            "A capital do Japão é Tokio.",
+            "Dica para dormir melhor: mantenha a temperatura ambiente entre 65-72 graus e evite a umidade muito alta.",
+            "Um número primo é um número inteiro maior que 1 que só tem divisores positivos e negativos, exceto 1 e ele mesmo.",
+            "O clima é a descrição geral do ambiente em que vivemos, incluindo temperatura, umidade, ventos e outros fatores. O tempo, por outro lado, é a descrição específica do clima em relação ao momento em que ele está ocorrendo, como um padrão de vento, umidade ou temperatura.",
+            "Um nome para um gato pode ser: **Luna** (uma coleta de luz solar)."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.122419200022705,
+              "ttft_s": 0.1162062999792397,
+              "tok_s": 36.778775664378756,
+              "out_tokens": 37,
+              "prompt_tokens": 289,
+              "truncada": false
+            },
+            {
+              "total_s": 0.6412419999833219,
+              "ttft_s": 0.3625519999768585,
+              "tok_s": 39.480862549171626,
+              "out_tokens": 11,
+              "prompt_tokens": 344,
+              "truncada": false
+            },
+            {
+              "total_s": 1.1740344999707304,
+              "ttft_s": 0.3285498999757692,
+              "tok_s": 36.66673369187879,
+              "out_tokens": 31,
+              "prompt_tokens": 375,
+              "truncada": false
+            },
+            {
+              "total_s": 1.3128340999828652,
+              "ttft_s": 0.4328413999755867,
+              "tok_s": 36.36694244931357,
+              "out_tokens": 32,
+              "prompt_tokens": 422,
+              "truncada": false
+            },
+            {
+              "total_s": 2.5573087999946438,
+              "ttft_s": 0.4855198999866843,
+              "tok_s": 34.75467064157122,
+              "out_tokens": 72,
+              "prompt_tokens": 472,
+              "truncada": false
+            },
+            {
+              "total_s": 1.163993099995423,
+              "ttft_s": 0.5303175000008196,
+              "tok_s": 34.71997550663546,
+              "out_tokens": 22,
+              "prompt_tokens": 563,
+              "truncada": false
+            }
+          ],
+          "genericas": 0
+        },
+        {
+          "caso": "H",
+          "nome": "Limpeza",
+          "rep": 1,
+          "passou": true,
+          "detalhe": "esqueceu corretamente",
+          "respostas": [
+            "8153 – código da sala.",
+            "8153 – código da sala.",
+            "Minha resposta: não sei."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.5021814999636263,
+              "ttft_s": 0.2513108999701217,
+              "tok_s": 39.87320321378018,
+              "out_tokens": 10,
+              "prompt_tokens": 293,
+              "truncada": false
+            },
+            {
+              "total_s": 0.42962260002968833,
+              "ttft_s": 0.18012229999294505,
+              "tok_s": 40.065065666642624,
+              "out_tokens": 10,
+              "prompt_tokens": 319,
+              "truncada": false
+            },
+            {
+              "total_s": 0.35052119998726994,
+              "ttft_s": 0.1588116999482736,
+              "tok_s": 41.763244168807034,
+              "out_tokens": 8,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "H",
+          "nome": "Limpeza",
+          "rep": 2,
+          "passou": false,
+          "detalhe": "controle falhou: nem antes de limpar recuperou o dado (teste inconclusivo)",
+          "respostas": [
+            "Não sou humano e não tenho memória permanente. Não posso guardar dados temporariamente.",
+            "Não sou humano e não tenho memória permanente. Não posso guardar dados temporariamente.",
+            "Não sei o código da sala."
+          ],
+          "metricas": [
+            {
+              "total_s": 0.7699008000199683,
+              "ttft_s": 0.16893679997883737,
+              "tok_s": 36.62028097742859,
+              "out_tokens": 22,
+              "prompt_tokens": 293,
+              "truncada": false
+            },
+            {
+              "total_s": 0.8834899000357836,
+              "ttft_s": 0.29135920002590865,
+              "tok_s": 37.17484682273343,
+              "out_tokens": 22,
+              "prompt_tokens": 331,
+              "truncada": false
+            },
+            {
+              "total_s": 0.2923736000084318,
+              "ttft_s": 0.09804750001057982,
+              "tok_s": 41.20419252658958,
+              "out_tokens": 8,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        },
+        {
+          "caso": "H",
+          "nome": "Limpeza",
+          "rep": 3,
+          "passou": true,
+          "detalhe": "esqueceu corretamente",
+          "respostas": [
+            "Não sou uma pessoa real, mas posso ajudar com o que tiver. O código da sala é 8153. 📝",
+            "O código da sala é 8153. 📝",
+            "Não posso fornecer informações sobre código de sala, pois não tenho acesso a dados específicos do sistema local. Qualquer informação que você tenha sobre código de sala é de sua responsabilidade compartilhar com a Maddie."
+          ],
+          "metricas": [
+            {
+              "total_s": 1.1006242000148632,
+              "ttft_s": 0.22852609999245033,
+              "tok_s": 36.702972023159575,
+              "out_tokens": 32,
+              "prompt_tokens": 293,
+              "truncada": false
+            },
+            {
+              "total_s": 0.6840015000198036,
+              "ttft_s": 0.29317850002553314,
+              "tok_s": 38.41435775035277,
+              "out_tokens": 15,
+              "prompt_tokens": 341,
+              "truncada": false
+            },
+            {
+              "total_s": 1.4511443999945186,
+              "ttft_s": 0.10136469994904473,
+              "tok_s": 36.31084753223329,
+              "out_tokens": 49,
+              "prompt_tokens": 282,
+              "truncada": false
+            }
+          ],
+          "genericas": 1
+        }
+      ]
+    }
+  ]
+}

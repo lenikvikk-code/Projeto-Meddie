@@ -1,0 +1,44 @@
+{
+  "ollama": {
+    "host": "127.0.0.1",
+    "port": 11434,
+    "connect_timeout_s": 5.0,
+    "read_timeout_s": 300.0
+  },
+  "model": {
+    "name": "qwen3.5:4b",
+    "num_ctx": 8192,
+    "num_predict": 768,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "repeat_penalty": null,
+    "presence_penalty": null,
+    "num_thread": null,
+    "num_batch": null,
+    "think": false,
+    "keep_alive": "30m"
+  },
+  "memory": {
+    "max_tokens": 5500,
+    "trim_ratio": 0.6,
+    "summarize": true,
+    "summary_max_tokens": 200
+  },
+  "base_memory": {
+    "enabled": true,
+    "file": "memoria/memoria_base.json",
+    "max_facts": 60
+  },
+  "persona_file": "persona.md",
+  "warm_up": true,
+  "strip_emoji": false,
+  "unload_model_on_exit": true,
+  "ui": {
+    "theme": "escuro",
+    "font_size": 11,
+    "width": 1120,
+    "height": 740,
+    "show_stats": true
+  }
+}

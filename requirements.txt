@@ -1,0 +1,9 @@
+# Maddie I.A. 0.3 - nenhuma dependencia externa de Python.
+#
+# Tudo usa a biblioteca padrao do Python 3.10+:
+#   tkinter      -> interface grafica (vem no instalador oficial do Python para Windows)
+#   http.client  -> API local do Ollama em 127.0.0.1 (streaming NDJSON)
+#   json, threading, queue, unittest
+#
+# Dependencia fora do Python (instalada a parte, ver README):
+#   Ollama  -> https://ollama.com/download  |  o modelo esta em config.json (model.name)
