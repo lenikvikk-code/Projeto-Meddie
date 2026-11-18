@@ -8,6 +8,7 @@ responder, organizar memória ou extrair fatos); o estado da janela diz qual.
 from __future__ import annotations
 
 import queue
+import sys
 import threading
 import time
 import tkinter as tk
@@ -43,8 +44,8 @@ BUSY = ("carregando", "respondendo", "organizando")
 RECHECK_MS = 5000
 POLL_MS = 30
 TICK_MS = 500
-FAMILY = "Segoe UI"
-MONO = "Consolas"
+FAMILY = "DejaVu Sans" if sys.platform.startswith("linux") else "Segoe UI"
+MONO = "DejaVu Sans Mono" if sys.platform.startswith("linux") else "Consolas"
 
 
 def num(value: float, digits: int = 1) -> str:
@@ -54,6 +55,8 @@ def num(value: float, digits: int = 1) -> str:
 
 def set_titlebar(window, dark: bool) -> None:
     """Barra de título escura/clara no Windows 10/11 (acompanha o tema). Ignorado se não der."""
+    if sys.platform != "win32":
+        return
     try:
         import ctypes
         window.update_idletasks()
@@ -66,6 +69,8 @@ def set_titlebar(window, dark: bool) -> None:
 
 def enable_dpi_awareness() -> None:
     """Texto nítido em telas com escala > 100% (Windows). Ignorado em outros sistemas."""
+    if sys.platform != "win32":
+        return
     try:
         import ctypes
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
@@ -564,6 +569,14 @@ class MaddieApp:
             self._finish_reply(payload, stopped=False)
         elif kind == "stopped":
             self._finish_reply(payload, stopped=True)
+        elif kind == "reply_paused":
+            self._set_state("organizando")
+        elif kind == "reply_resumed":
+            self._after_maintenance(payload, resume=True)
+        elif kind == "reply_resume_error":
+            info, error = payload
+            self._finish_reply(info, stopped=False)
+            self._note(f"Não foi possível continuar a resposta: {error}", "error")
         elif kind == "chat_error":
             self._abort_reply()
             self._note(f"Erro: {payload}", "error")
@@ -668,6 +681,21 @@ class MaddieApp:
                                          "Recarregando: esta resposta demora mais para começar."))
             for chunk in session.reply(user_text, cancelled=lambda: self.closing or self.cancel_event.is_set()):
                 self.events.put(("chunk", chunk))
+            while (session.last.reply.strip() and session.response_was_limited()
+                   and session.maintenance_due()):
+                self.events.put(("reply_paused", None))
+                try:
+                    rep = session.maintain(
+                        cancelled=lambda: self.closing or self.cancel_event.is_set())
+                    self.events.put(("reply_resumed", rep))
+                    for chunk in session.continue_reply(
+                            cancelled=lambda: self.closing or self.cancel_event.is_set()):
+                        self.events.put(("chunk", chunk))
+                except ResponseCancelled:
+                    raise
+                except Exception as exc:
+                    self.events.put(("reply_resume_error", (session.last, str(exc))))
+                    return
             self.events.put(("done", session.last))
         except ResponseCancelled:
             if not self.closing:
@@ -727,8 +755,9 @@ class MaddieApp:
                 self._draw_reply_body(entry)
             self.stats_label.configure(text="\n".join(parts))
             if st.done_reason == "length":
-                self._note(f"Resposta cortada no limite de {cfg.num_predict} tokens (ajuste em Ajustes).")
-            if st.prompt_tokens + st.output_tokens >= cfg.num_ctx:
+                limit = "janela de contexto" if cfg.num_predict == -1 else f"limite de {cfg.num_predict} tokens"
+                self._note(f"Resposta cortada no {limit} (ajuste em Ajustes).")
+            if info.max_context_tokens >= cfg.num_ctx:
                 self._note(f"Aviso: a janela de {cfg.num_ctx} tokens encheu; o começo da conversa pode "
                            "ter sido truncado pelo Ollama.")
         if at_end:
@@ -775,7 +804,7 @@ class MaddieApp:
         except Exception as exc:
             self.events.put(("task_error", f"Falha ao organizar a memória: {exc!r}"))
 
-    def _after_maintenance(self, rep) -> None:
+    def _after_maintenance(self, rep, resume: bool = False) -> None:
         if rep.dropped:
             if rep.dropped == 1:
                 what = "a troca mais antiga " + ("foi resumida" if rep.summarized else "saiu da memória")
@@ -787,7 +816,10 @@ class MaddieApp:
         if rep.error:
             self._note(f"Aviso: {rep.error}", "error")
         self._update_side()
-        self._become_ready()
+        if resume:
+            self._set_state("respondendo")
+        else:
+            self._become_ready()
 
     def _announce_facts(self, facts: list) -> None:
         for fact, action in facts:

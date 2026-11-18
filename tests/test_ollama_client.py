@@ -17,6 +17,7 @@ class FakeOllama(BaseHTTPRequestHandler):
     models = ["qwen3:0.6b"]
     chat_status = 200
     last_chat_body = None
+    last_generate_body = None
 
     def log_message(self, *args):
         pass
@@ -40,6 +41,7 @@ class FakeOllama(BaseHTTPRequestHandler):
     def do_POST(self):
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
         if self.path == "/api/generate":
+            type(self).last_generate_body = body
             self._json(200, {"done": True})
             return
         type(self).last_chat_body = body
@@ -93,6 +95,11 @@ class ClientTests(unittest.TestCase):
         self.assertEqual(body["options"]["num_ctx"], 8192)
         self.assertEqual(body["options"]["num_predict"], 768)
         self.assertNotIn("seed", body["options"])  # app usa amostragem aleatória
+
+    def test_load_model_does_not_inherit_unlimited_generation(self):
+        self.client.cfg = config.replace(self.cfg, num_predict=-1)
+        self.client.load_model()
+        self.assertEqual(FakeOllama.last_generate_body["options"]["num_predict"], 1)
 
     def test_model_missing(self):
         FakeOllama.models = ["outro:1b"]

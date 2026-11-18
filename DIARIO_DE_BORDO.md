@@ -45,7 +45,7 @@ Pasta: `C:\Users\lenik\Projetos\maddie` · Versão: **0.3.0** · Última atualiz
 ## 2. Modo de uso
 
 1. `ollama pull qwen3.5:4b` (uma vez, 3,3 GB).
-2. Dois cliques em `iniciar_maddie.bat`.
+2. Dois cliques em `iniciar_maddie_win.bat`.
 3. A barra lateral mostra **Preparando** por 20 a 35 s. Já dá para digitar e enviar: a mensagem entra na fila.
 4. Enter envia, Shift+Enter quebra linha, Esc interrompe, Ctrl+N abre conversa nova, Ctrl+, abre Ajustes.
 

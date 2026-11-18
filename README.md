@@ -1,6 +1,6 @@
 # Maddie I.A. 0.3
 
-Chatbot local para Windows. Interface em Tkinter e inferência via **Ollama** em `127.0.0.1`. Nenhuma mensagem sai do computador e não há dependência de serviço de IA remoto.
+Chatbot local para Windows e Linux. Interface em Tkinter e inferência via **Ollama** em `127.0.0.1`. Nenhuma mensagem sai do computador e não há dependência de serviço de IA remoto.
 
 > Estado do projeto, histórico de decisões, medições e próximos passos: **[DIARIO_DE_BORDO.md](DIARIO_DE_BORDO.md)**.
 
@@ -10,6 +10,28 @@ Chatbot local para Windows. Interface em Tkinter e inferência via **Ollama** em
 - Ollama 0.30 ou mais novo
 - Nenhum pacote pip
 
+## Como rodar no Linux
+
+Pré-requisitos:
+- Python 3.10+ e `venv`
+- Tkinter para a versão do Python usada (`python3-tk` no Debian/Ubuntu ou `python3-tkinter` no Fedora)
+- Ollama instalado e o modelo configurado baixado (`ollama pull qwen3.5:4b`)
+
+No Debian/Ubuntu, instale o Tkinter com `sudo apt install python3-tk`; no Fedora, use `sudo dnf install python3-tkinter`. Depois, na raiz do projeto:
+
+```bash
+chmod +x iniciar_maddie_linux.sh executar_testes_linux.sh
+./iniciar_maddie_linux.sh
+```
+
+O lançador cria `.venv` se necessário, instala os requisitos e tenta iniciar `ollama serve` em segundo plano se a API local ainda não estiver respondendo. Para executar os testes determinísticos sem Ollama:
+
+```bash
+./executar_testes_linux.sh
+```
+
+Se o Tkinter estiver ausente, `main.py` informa os comandos de instalação apropriados para Debian/Ubuntu e Fedora.
+
 ## Instalar
 ```powershell
 winget install --id Ollama.Ollama -e
@@ -17,7 +39,7 @@ ollama pull qwen3.5:4b          # cerca de 3,3 GB, uma vez
 ```
 
 ## Executar
-Dois cliques em **`iniciar_maddie.bat`**, ou `python main.py` para ver erros no terminal.
+Dois cliques em **`iniciar_maddie_win.bat`**, ou `python main.py` para ver erros no terminal.
 
 Ao abrir, a Maddie leva de 20 a 35 s se preparando (estado **Preparando**, na barra lateral). Você já pode digitar e enviar: a mensagem fica na fila e é respondida assim que ela estiver pronta.
 
@@ -41,13 +63,14 @@ Ao abrir, a Maddie leva de 20 a 35 s se preparando (estado **Preparando**, na ba
 |---|---|---|
 | `model.name` | `qwen3.5:4b` | Modelo do Ollama. Modelos `*-cloud` são recusados |
 | `model.num_ctx` | `8192` | Janela de contexto. Mudar recarrega o modelo |
-| `model.num_predict` | `768` | Tamanho máximo da resposta |
+| `model.num_predict` | `768` | Tamanho máximo da resposta; “Ilimitado” usa o limite da janela de contexto do modelo |
 | `model.temperature` / `top_p` / `top_k` | `0.7` / `0.8` / `20` | Perfil Equilibrado. Preciso = 0,3/0,8; Criativo = 1,0/0,95 |
 | `model.repeat_penalty` / `presence_penalty` | `null` | `null` usa o padrão do modelo |
 | `model.num_thread` / `num_batch` | `null` | `null` deixa o Ollama decidir. Mudar recarrega o modelo |
 | `model.keep_alive` | `30m` | Tempo que o modelo fica na RAM sem uso |
 | `memory.max_tokens` | `5500` | Teto do histórico (estimado como caracteres ÷ 3) |
 | `memory.trim_ratio` | `0.6` | Ao estourar, esquece em lote até sobrar esta fração |
+| `memory.unlimited` | `false` | Sem teto fixo do app; a janela do modelo continua sendo o limite técnico e trocas antigas são resumidas ou removidas, conforme `memory.summarize` |
 | `memory.summarize` | `true` | Resume o lote antes de esquecer (resumo fica só na RAM) |
 | `base_memory.enabled` | **`false`** | Memória permanente entre conversas. **Grava em disco** |
 | `base_memory.file` / `max_facts` | `memoria/memoria_base.json` / `60` | Arquivo e teto de fatos |
@@ -60,6 +83,7 @@ Ao abrir, a Maddie leva de 20 a 35 s se preparando (estado **Preparando**, na ba
 ## Memória e privacidade
 - **Conversa:** fica só em RAM. Fechar a janela descarta tudo.
 - **Resumo:** quando a conversa passa do teto, as trocas mais antigas são resumidas pelo próprio modelo e o resumo substitui essas trocas. Também fica só em RAM.
+- Se a geração terminar por limite enquanto há memória para reorganizar, a Maddie organiza o histórico e tenta continuar a mesma resposta.
 - **Memória permanente (desligada por padrão):** se você ligar, a Maddie guarda fatos duráveis sobre você em `memoria/memoria_base.json`, em texto puro. Nada entra sem validação: o trecho de origem precisa existir numa mensagem sua, e dados de saúde, finanças, documentos, senhas, endereço e contato são bloqueados. O painel *Memória permanente* mostra, edita e apaga tudo.
 - **Exportar conversa** grava um `.md` onde você escolher. Só acontece quando você clica.
 - A avaliação grava em `avaliacao/resultados/` apenas as conversas de teste dela.
@@ -73,7 +97,7 @@ python avaliacao\avaliar.py --casos B I J --rep 1                 # só alguns c
 python avaliacao\avaliar.py --modelos qwen3.5:4b qwen3:4b-instruct-2507-q4_K_M
 python avaliacao\avaliar_memoria_base.py                          # extração de fatos, cerca de 10 min
 ```
-Ou `executar_testes.bat`. Os critérios da bateria são regex e heurísticas: "OK" significa critério atendido, não resposta boa. Leia as respostas no JSON.
+Ou `executar_testes_win.bat`. Os critérios da bateria são regex e heurísticas: "OK" significa critério atendido, não resposta boa. Leia as respostas no JSON.
 
 ## Arquitetura (resumo)
 ```

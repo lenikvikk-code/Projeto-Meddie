@@ -182,7 +182,7 @@ class OllamaClient:
         conn, resp = self._request(
             "POST", "/api/generate",
             {"model": self.cfg.model, "keep_alive": self.cfg.keep_alive, "stream": False,
-             "options": self.cfg.model_options()},
+             "options": self.cfg.model_options() | {"num_predict": 1}},
         )
         try:
             if resp.status != 200:

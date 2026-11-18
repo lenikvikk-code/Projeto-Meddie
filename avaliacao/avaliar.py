@@ -385,7 +385,12 @@ def main():
     args = ap.parse_args()
 
     cfg = apply_overrides(config.load(ROOT / "config.json"), args.overrides)
-    persona_path = Path(args.persona) if args.persona else ROOT / cfg.persona_file
+    if args.persona:
+        requested_persona = Path(args.persona)
+        persona_path = (requested_persona if requested_persona.is_absolute()
+                        else config.project_path(ROOT, requested_persona, "persona"))
+    else:
+        persona_path = config.project_path(ROOT, cfg.persona_file, "persona_file")
     persona = personality.load_persona(persona_path)
     client = OllamaClient(cfg)
     models = client.installed_models() if args.todos else (args.modelos or [cfg.model])

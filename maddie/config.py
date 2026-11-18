@@ -6,7 +6,7 @@ import dataclasses
 import json
 import os
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
 THEMES = ("escuro", "claro")
@@ -21,6 +21,21 @@ PROFILES = {
 
 class ConfigError(Exception):
     """Configuração inválida ou ilegível."""
+
+
+def _relative_project_path(value: str | Path, field_name: str) -> Path:
+    raw = str(value)
+    path = Path(raw.replace("\\", "/"))
+    windows_path = PureWindowsPath(raw)
+    if (path.is_absolute() or windows_path.is_absolute() or windows_path.drive
+            or ".." in path.parts or ".." in windows_path.parts):
+        raise ConfigError(f"'{field_name}' deve ser um caminho relativo dentro da pasta da Maddie")
+    return path
+
+
+def project_path(base_dir: str | Path, value: str | Path, field_name: str = "path") -> Path:
+    """Resolve um caminho configurado dentro do projeto, aceitando separadores Windows ou POSIX."""
+    return Path(base_dir).resolve() / _relative_project_path(value, field_name)
 
 
 @dataclass(frozen=True)
@@ -47,6 +62,7 @@ class Config:
     memory_max_tokens: int = 5500   # teto do histórico (estimado); o motor reduz se faltar janela
     memory_trim_ratio: float = 0.6  # ao estourar, esquece em lote até sobrar esta fração
     memory_summarize: bool = True   # resume o lote antes de esquecer (fica só em RAM)
+    memory_unlimited: bool = False  # usa todo o contexto disponível em vez de um teto fixo menor
     summary_max_tokens: int = 200   # limite de saída do resumo
 
     base_memory_enabled: bool = False  # memória entre sessões: GRAVA EM DISCO; desligada por padrão
@@ -104,13 +120,15 @@ def _validate(cfg: Config) -> None:
         )
     if not (1 <= cfg.port <= 65535):
         raise ConfigError(f"Porta inválida: {cfg.port}")
-    for field_name in ("num_ctx", "num_predict", "memory_max_tokens", "summary_max_tokens",
-                       "base_memory_max_facts"):
+    for field_name in ("num_ctx", "memory_max_tokens", "summary_max_tokens", "base_memory_max_facts"):
         if getattr(cfg, field_name) < 1:
             raise ConfigError(f"'{field_name}' deve ser >= 1")
-    if cfg.num_predict >= cfg.num_ctx:
+    if cfg.num_predict != -1 and cfg.num_predict < 1:
+        raise ConfigError("'num_predict' deve ser >= 1 ou -1 (ilimitado)")
+    if cfg.num_predict != -1 and cfg.num_predict >= cfg.num_ctx:
         raise ConfigError("'num_predict' deve ser menor que 'num_ctx'")
-    if cfg.memory_max_tokens + cfg.num_predict >= cfg.num_ctx:
+    output_reserve = cfg.num_predict if cfg.num_predict > 0 else min(768, cfg.num_ctx // 4)
+    if not cfg.memory_unlimited and cfg.memory_max_tokens + output_reserve >= cfg.num_ctx:
         raise ConfigError("'memory.max_tokens' + 'num_predict' deve ser menor que 'num_ctx' "
                           "(sobra espaço para a persona e a mensagem nova)")
     if not 0 < cfg.memory_trim_ratio < 1:
@@ -137,8 +155,8 @@ def _validate(cfg: Config) -> None:
         raise ConfigError("'ui.font_size' deve estar entre 8 e 24")
     if cfg.ui_width < 640 or cfg.ui_height < 480:
         raise ConfigError("Janela mínima: 640x480")
-    if Path(cfg.base_memory_file).is_absolute() or ".." in Path(cfg.base_memory_file).parts:
-        raise ConfigError("'base_memory.file' deve ser um caminho relativo dentro da pasta da Maddie")
+    _relative_project_path(cfg.base_memory_file, "base_memory.file")
+    _relative_project_path(cfg.persona_file, "persona_file")
 
 
 def _opt(value, cast):
@@ -176,6 +194,7 @@ def from_dict(data: dict) -> Config:
             memory_max_tokens=int(mem.get("max_tokens", d.memory_max_tokens)),
             memory_trim_ratio=float(mem.get("trim_ratio", d.memory_trim_ratio)),
             memory_summarize=bool(mem.get("summarize", d.memory_summarize)),
+            memory_unlimited=bool(mem.get("unlimited", d.memory_unlimited)),
             summary_max_tokens=int(mem.get("summary_max_tokens", d.summary_max_tokens)),
             base_memory_enabled=bool(base.get("enabled", d.base_memory_enabled)),
             base_memory_file=str(base.get("file", d.base_memory_file)),
@@ -212,7 +231,8 @@ def to_dict(cfg: Config) -> dict:
         },
         "memory": {
             "max_tokens": cfg.memory_max_tokens, "trim_ratio": cfg.memory_trim_ratio,
-            "summarize": cfg.memory_summarize, "summary_max_tokens": cfg.summary_max_tokens,
+            "summarize": cfg.memory_summarize, "unlimited": cfg.memory_unlimited,
+            "summary_max_tokens": cfg.summary_max_tokens,
         },
         "base_memory": {
             "enabled": cfg.base_memory_enabled, "file": cfg.base_memory_file,

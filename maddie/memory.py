@@ -84,6 +84,26 @@ class ConversationMemory:
                 return ex
         return None
 
+    def last_visible(self) -> Exchange | None:
+        for ex in reversed(self._exchanges):
+            if not ex.hidden:
+                return ex
+        return None
+
+    def extend_last_reply(self, displayed: str, raw: str) -> None:
+        """Acrescenta a continuação à última resposta visível, sem criar outra troca."""
+        for index in range(len(self._exchanges) - 1, -1, -1):
+            ex = self._exchanges[index]
+            if ex.hidden:
+                continue
+            assistant = ex.assistant + displayed
+            raw_reply = ex.for_prompt + raw
+            self._exchanges[index] = Exchange(
+                ex.user, assistant, ex.sent,
+                None if raw_reply == assistant else raw_reply, ex.hidden)
+            return
+        raise ValueError("Não há resposta visível para continuar")
+
     def drop_hidden(self) -> None:
         """Remove as trocas internas (usado para refazer a abertura de uma conversa vazia)."""
         self._exchanges = [ex for ex in self._exchanges if not ex.hidden]

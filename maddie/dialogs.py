@@ -18,6 +18,8 @@ DEFAULT = "padrão do modelo"
 
 def history_budget_for(num_ctx: int, num_predict: int) -> int:
     """Teto do histórico proporcional à janela (8192/768 -> 5500)."""
+    if num_predict == -1:
+        num_predict = min(768, num_ctx // 4)
     return max(500, int(round((num_ctx - num_predict) * 0.74 / 100.0)) * 100)
 
 
@@ -69,6 +71,8 @@ class SettingsDialog(_Dialog):
         body.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         canvas.bind("<Configure>", lambda e: canvas.itemconfigure(win, width=e.width))
         self.bind("<MouseWheel>", lambda e: canvas.yview_scroll(-1 if e.delta > 0 else 1, "units"))
+        self.bind("<Button-4>", lambda e: canvas.yview_scroll(-1, "units"))
+        self.bind("<Button-5>", lambda e: canvas.yview_scroll(1, "units"))
         self.body = body
         self._row = 0
         body.grid_columnconfigure(1, weight=1)
@@ -86,7 +90,8 @@ class SettingsDialog(_Dialog):
         self._combo("num_ctx", "Janela de contexto (tokens)", ["4096", "8192", "12288", "16384"],
                     str(cfg.num_ctx), "Maior = lembra mais, usa mais RAM e recarrega o modelo.")
         self._combo("num_predict", "Tamanho máximo da resposta (tokens)",
-                    ["256", "512", "768", "1024", "1536", "2048"], str(cfg.num_predict))
+                    ["256", "512", "768", "1024", "1536", "2048", "Ilimitado"],
+                    "Ilimitado" if cfg.num_predict == -1 else str(cfg.num_predict))
         ka = dict((v, k) for k, v in KEEP_ALIVE)
         self._combo("keep_alive", "Manter o modelo na RAM por", [k for k, _ in KEEP_ALIVE],
                     ka.get(cfg.keep_alive, cfg.keep_alive),
@@ -114,6 +119,9 @@ class SettingsDialog(_Dialog):
                     cfg.strip_emoji)
         self._check("memory_summarize", "Resumir as mensagens antigas antes de esquecê-las",
                     cfg.memory_summarize)
+        self._check("memory_unlimited", "Limite de tokens por conversa: ilimitado", cfg.memory_unlimited)
+        self._hint("O contexto do modelo ainda é finito; mensagens antigas são resumidas ou removidas ao "
+                   "atingi-lo, conforme a opção de resumo.")
         self._check("base_memory_enabled",
                     "Memória permanente: guardar fatos sobre mim entre conversas (grava em disco)",
                     cfg.base_memory_enabled)
@@ -207,9 +215,13 @@ class SettingsDialog(_Dialog):
     # ---------- leitura ----------
     def _collect(self) -> Config:
         v, old = self.v, self.app.cfg
-        num_ctx, num_predict = int(v["num_ctx"].get()), int(v["num_predict"].get())
+        num_ctx = int(v["num_ctx"].get())
+        predict_value = v["num_predict"].get()
+        num_predict = -1 if predict_value == "Ilimitado" else int(predict_value)
         mem = old.memory_max_tokens
-        if (num_ctx, num_predict) != (old.num_ctx, old.num_predict):
+        memory_unlimited = bool(v["memory_unlimited"].get())
+        if not memory_unlimited and (
+                (num_ctx, num_predict) != (old.num_ctx, old.num_predict) or old.memory_unlimited):
             mem = history_budget_for(num_ctx, num_predict)
         ka = dict(KEEP_ALIVE)
         thread = v["num_thread"].get()
@@ -217,6 +229,7 @@ class SettingsDialog(_Dialog):
         return config_mod.replace(
             old,
             model=v["model"].get(), num_ctx=num_ctx, num_predict=num_predict, memory_max_tokens=mem,
+            memory_unlimited=memory_unlimited,
             keep_alive=ka.get(v["keep_alive"].get(), v["keep_alive"].get()),
             num_thread=None if thread == AUTO else int(thread),
             temperature=round(float(v["temperature"].get()), 2), top_p=round(float(v["top_p"].get()), 2),
@@ -257,10 +270,12 @@ class SettingsDialog(_Dialog):
             return
         ka = dict((v, k) for k, v in KEEP_ALIVE)
         values = {
-            "model": d.model, "num_ctx": str(d.num_ctx), "num_predict": str(d.num_predict),
+            "model": d.model, "num_ctx": str(d.num_ctx),
+            "num_predict": "Ilimitado" if d.num_predict == -1 else str(d.num_predict),
             "keep_alive": ka[d.keep_alive], "num_thread": AUTO, "profile": d.profile_name(),
             "top_k": str(d.top_k), "repeat_penalty": DEFAULT, "warm_up": d.warm_up,
             "strip_emoji": d.strip_emoji, "memory_summarize": d.memory_summarize,
+            "memory_unlimited": d.memory_unlimited,
             "base_memory_enabled": d.base_memory_enabled, "unload_model_on_exit": d.unload_model_on_exit,
             "ui_theme": d.ui_theme, "ui_font_size": str(d.ui_font_size), "ui_show_stats": d.ui_show_stats,
         }

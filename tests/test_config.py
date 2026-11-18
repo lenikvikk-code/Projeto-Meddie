@@ -30,6 +30,24 @@ class ConfigTests(unittest.TestCase):
             config.from_dict({"model": {"num_ctx": 4096, "num_predict": 512}, "memory": {"max_tokens": 3600}})
         with self.assertRaises(config.ConfigError):
             config.from_dict({"memory": {"trim_ratio": 0}})
+        unlimited = config.from_dict({"model": {"num_ctx": 4096, "num_predict": 512},
+                                      "memory": {"max_tokens": 3600, "unlimited": True}})
+        self.assertTrue(unlimited.memory_unlimited)
+        no_response_limit = config.from_dict({"model": {"num_predict": -1}})
+        self.assertEqual(no_response_limit.num_predict, -1)
+        self.assertEqual(no_response_limit.model_options()["num_predict"], -1)
+        with self.assertRaises(config.ConfigError):
+            config.from_dict({"model": {"num_predict": -2}})
+
+    def test_project_paths_accept_windows_separators_and_reject_traversal(self):
+        cfg = config.from_dict({"base_memory": {"file": r"memoria\memoria_base.json"}})
+        self.assertEqual(config.project_path(ROOT, cfg.base_memory_file),
+                         ROOT / "memoria" / "memoria_base.json")
+        for field in ({"base_memory": {"file": r"..\fora.json"}},
+                      {"persona_file": r"..\fora.md"},
+                      {"base_memory": {"file": r"C:\fora.json"}}):
+            with self.subTest(field=field), self.assertRaises(config.ConfigError):
+                config.from_dict(field)
 
     def test_rejects_non_loopback_host(self):
         for host in ("0.0.0.0", "192.168.0.10", "api.exemplo.com"):

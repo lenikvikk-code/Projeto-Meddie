@@ -192,7 +192,7 @@ class ConfigV03Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p = Path(d) / "config.json"
             cfg = config.replace(config.Config(), temperature=0.3, num_thread=6, ui_theme="claro",
-                                 base_memory_enabled=True)
+                                 base_memory_enabled=True, memory_unlimited=True)
             config.save(p, cfg)
             self.assertEqual(config.load(p), cfg)
             self.assertNotIn("seed", json.loads(p.read_text(encoding="utf-8"))["model"])

@@ -8,7 +8,8 @@ from pathlib import Path
 
 from maddie import config
 from maddie.context import NOTE_PREFIX
-from maddie.engine import EXTRACT_SYSTEM, HIDDEN_MAX_TOKENS, SUMMARY_SYSTEM, ChatSession, parse_candidates
+from maddie.engine import (CONTINUE_REPLY, EXTRACT_SYSTEM, HIDDEN_MAX_TOKENS, SUMMARY_SYSTEM,
+                           ChatSession, parse_candidates)
 from maddie.memory import SUMMARY_NOTE
 from maddie.ollama_client import OllamaError, ResponseCancelled
 
@@ -162,6 +163,39 @@ class ReplyTests(unittest.TestCase):
         s.system_prompt = "x" * 9000  # 3000 tokens estimados
         self.assertLess(s.history_budget(), 5500)
         self.assertLess(s.history_budget() + 3000 + s.cfg.num_predict, s.cfg.num_ctx)
+
+    def test_unlimited_history_uses_the_model_context_budget(self):
+        s, _ = make(self.tmp.name, memory_unlimited=True)
+        self.assertGreater(s.history_budget(), s.cfg.memory_max_tokens)
+        self.assertEqual(s.memory.max_tokens, s.history_budget())
+
+    def test_continue_reply_extends_the_same_exchange_after_rewarm(self):
+        s, c = make(self.tmp.name, strip_emoji=False)
+        c.script = ["A resposta parou", " e continuou."]
+        list(s.reply("pergunta", now=T0))
+        s.memory.add_exchange("aplicação", "Certo.", auto_trim=False, hidden=True)
+
+        continuation = "".join(s.continue_reply())
+
+        self.assertEqual(continuation, " e continuou.")
+        self.assertEqual(s.last.reply, "A resposta parou e continuou.")
+        self.assertEqual(s.memory.exchanges(), [("pergunta", "A resposta parou e continuou.")])
+        messages = c.calls[-1]["messages"]
+        self.assertEqual(messages[-1]["content"], CONTINUE_REPLY)
+        self.assertEqual(messages[-4]["content"], "A resposta parou")
+
+    def test_detects_truncation_with_and_without_done_reason(self):
+        s, _ = make(self.tmp.name)
+        s.last.stats.done_reason = "length"
+        self.assertTrue(s.response_was_limited())
+        s.last.stats.done_reason = ""
+        s.last.stats.output_tokens = s.cfg.num_predict
+        self.assertTrue(s.response_was_limited())
+        s.last.stats.output_tokens = 1
+        s.last.stats.prompt_tokens = s.cfg.num_ctx - 1
+        self.assertTrue(s.response_was_limited())
+        s.last.stats.prompt_tokens = 0
+        self.assertFalse(s.response_was_limited())
 
 
 class MaintenanceTests(unittest.TestCase):

@@ -20,6 +20,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Iterator
 
+from . import config
 from .config import Config
 from .context import _local, needs_time_note, short_context, with_time_note
 from .memory import ConversationMemory, estimate_tokens
@@ -37,6 +38,10 @@ MIN_HISTORY_BUDGET = 256
 OPENING = "[Aplicação: nova conversa iniciada em {quando}. Responda apenas: Pronta.]"
 RESUME = "[Aplicação: a conversa continua de onde parou. Responda apenas: Certo.]"
 REORGANIZED = "[Aplicação: a memória da conversa foi reorganizada. Responda apenas: Certo.]"
+CONTINUE_REPLY = (
+    "[Aplicação: continue a resposta anterior exatamente do ponto em que parou. "
+    "Não repita o que já foi dito; escreva somente a continuação.]"
+)
 HIDDEN_MAX_TOKENS = 8
 
 # O resumo usa um prompt PRÓPRIO, sem a persona. Motivo (medido em 14/11/2026, qwen3.5:4b):
@@ -98,6 +103,7 @@ EXTRACT_SCHEMA = {
 class ReplyInfo:
     """Medições da última resposta (para a barra de estado e a avaliação)."""
     stats: ChatStats = field(default_factory=ChatStats)
+    max_context_tokens: int = 0
     ttft_s: float = 0.0        # tempo até o primeiro pedaço de texto
     total_s: float = 0.0
     cancelled: bool = False
@@ -117,13 +123,14 @@ class MaintenanceReport:
 
 
 class ChatSession:
-    def __init__(self, cfg: Config, persona: str, base_dir: str | Path = ".",
+    def __init__(self, cfg: Config, persona: str, base_dir: str | Path | None = None,
                  client: OllamaClient | None = None):
         self.cfg = cfg
         self.persona = persona
-        self.base_dir = Path(base_dir)
+        self.base_dir = Path(base_dir).resolve() if base_dir is not None else Path(__file__).resolve().parent.parent
         self.client = client or OllamaClient(cfg)
-        self.store = FactStore(self.base_dir / cfg.base_memory_file, cfg.base_memory_max_facts)
+        self.store = FactStore(config.project_path(self.base_dir, cfg.base_memory_file, "base_memory.file"),
+                               cfg.base_memory_max_facts)
         self.memory = ConversationMemory(cfg.memory_max_tokens, cfg.memory_trim_ratio)
         self.last = ReplyInfo()
         self._last_note = None  # quando a última nota de data/hora foi enviada
@@ -135,7 +142,7 @@ class ChatSession:
         """Troca a configuração sem mexer no prompt de sistema (isso é do refresh_system)."""
         self.cfg = cfg
         self.client.cfg = cfg
-        self.store.path = self.base_dir / cfg.base_memory_file
+        self.store.path = config.project_path(self.base_dir, cfg.base_memory_file, "base_memory.file")
         self.store.max_facts = cfg.base_memory_max_facts
         self.memory.trim_ratio = cfg.memory_trim_ratio
         self.memory.max_tokens = self.history_budget()
@@ -158,9 +165,12 @@ class ChatSession:
 
     def history_budget(self) -> int:
         """Tokens que o histórico pode ocupar sem estourar a janela de contexto."""
-        free = (self.cfg.num_ctx - self.cfg.num_predict
+        output_reserve = (self.cfg.num_predict if self.cfg.num_predict > 0
+                          else min(768, self.cfg.num_ctx // 4))
+        free = (self.cfg.num_ctx - output_reserve
                 - estimate_tokens(self.system_prompt) - NEW_MESSAGE_RESERVE)
-        return max(MIN_HISTORY_BUDGET, min(self.cfg.memory_max_tokens, free))
+        limit = free if self.cfg.memory_unlimited else min(self.cfg.memory_max_tokens, free)
+        return max(MIN_HISTORY_BUDGET, limit)
 
     # ---------- aquecimento ----------
     def warm_up(self, cancelled: Callable[[], bool] = lambda: False, now=None) -> ChatStats:
@@ -219,6 +229,8 @@ class ChatSession:
             info.raw_reply = "".join(raw)
             info.reply = "".join(shown)
             info.emoji_removed = filt.removed if filt else 0
+            info.max_context_tokens = max(
+                info.max_context_tokens, info.stats.prompt_tokens + info.stats.output_tokens)
             if info.reply.strip():
                 self.memory.add_exchange(user_text, info.reply, sent, auto_trim=False, raw=info.raw_reply)
 
@@ -240,6 +252,60 @@ class ChatSession:
             raise
         commit()
 
+    def continue_reply(self, cancelled: Callable[[], bool] = lambda: False) -> Iterator[str]:
+        """Continua a última resposta após reorganizar a memória, mantendo uma única troca."""
+        info = self.last
+        if not info.reply:
+            raise RuntimeError("Não há uma resposta parcial para continuar")
+        last = self.memory.last_visible()
+        if last is None:
+            raise RuntimeError("A resposta parcial não está na memória da conversa")
+
+        messages = self.memory.build_messages(self.system_prompt, CONTINUE_REPLY)
+        filt = EmojiFilter() if self.cfg.strip_emoji and not self._user_uses_emoji(last.user) else None
+        raw: list[str] = []
+        shown: list[str] = []
+        stats = ChatStats()
+        t0 = time.perf_counter()
+        first_text = True
+
+        def commit() -> None:
+            raw_text, shown_text = "".join(raw), "".join(shown)
+            self.memory.extend_last_reply(shown_text, raw_text)
+            info.raw_reply += raw_text
+            info.reply += shown_text
+            info.emoji_removed += filt.removed if filt else 0
+            info.total_s += time.perf_counter() - t0
+            info.stats.prompt_tokens += stats.prompt_tokens
+            info.stats.output_tokens += stats.output_tokens
+            info.stats.total_s += stats.total_s
+            info.stats.load_s += stats.load_s
+            info.stats.prompt_eval_s += stats.prompt_eval_s
+            info.stats.eval_s += stats.eval_s
+            info.stats.done_reason = stats.done_reason
+            info.max_context_tokens = max(
+                info.max_context_tokens, stats.prompt_tokens + stats.output_tokens)
+
+        try:
+            for chunk in self.client.chat_stream(messages, cancelled=cancelled, stats=stats):
+                raw.append(chunk)
+                out = filt.feed(chunk) if filt else chunk
+                if out:
+                    if first_text:
+                        if info.ttft_s == 0:
+                            info.ttft_s = time.perf_counter() - t0
+                        first_text = False
+                    shown.append(out)
+                    yield out
+        except ResponseCancelled:
+            info.cancelled = True
+            commit()
+            raise
+        except Exception:
+            commit()
+            raise
+        commit()
+
     def pop_last(self) -> str | None:
         """Desfaz a última troca e devolve o texto do usuário (para 'Regenerar')."""
         ex = self.memory.pop_last()
@@ -256,6 +322,14 @@ class ChatSession:
     # ---------- manutenção da memória (rodar com o app ocioso) ----------
     def maintenance_due(self) -> bool:
         return self.memory.over_budget() and self.memory.overflow_count() > 0
+
+    def response_was_limited(self) -> bool:
+        """Detecta resposta truncada, inclusive em versões do Ollama sem done_reason."""
+        stats = self.last.stats
+        if stats.done_reason:
+            return stats.done_reason == "length"
+        return ((self.cfg.num_predict != -1 and stats.output_tokens >= self.cfg.num_predict)
+                or stats.prompt_tokens + stats.output_tokens >= self.cfg.num_ctx)
 
     def maintain(self, cancelled: Callable[[], bool] = lambda: False,
                  rewarm: bool = True) -> MaintenanceReport:
